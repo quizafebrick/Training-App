@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ControllerView;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ControllerView::class, 'login'])->name('login');
 Route::get('/register', [ControllerView::class, 'register'])->name('register');
+Route::post('/register-save', [UserController::class, 'store'])->name('store');
+
+Route::post('/login-check', [UserController::class, 'check'])->name('user-check');
+
+// * ROUTE FOR ADMIN * //
+Route::group(['middleware' => ['isLoggedIn', 'noBack']], function() {
+    Route::get('/a', [UserController::class, 'index'])->name('user-index');
+    Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
+});
+
+
+
 
