@@ -8,6 +8,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegistrationRequest;
+use App\Models\Student;
 
 class UserController extends Controller
 {
@@ -19,9 +20,6 @@ class UserController extends Controller
         $requests['password'] = Hash::make($requests['password']);
         $save = $user->create($requests);
 
-        if (empty($requests)) {
-            return redirect()->with("error", "All Fields are required.");
-        }
         if (!$save) {
             return redirect()->with("error", "Registration Failed");
         }
@@ -44,11 +42,12 @@ class UserController extends Controller
         return to_route('user-index');
     }
 
-    public function index(User $user)
+    public function index(User $user, Student $student)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
+        $students = $student->get();
 
-        return view('user.index', $userEmail);
+        return view('user.index', $userEmail, compact('students'));
     }
 
     public function logout()

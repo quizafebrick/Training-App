@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#studentTable_wrapper {
+    @apply p-10 text-black bg-white rounded-lg; /* append existing styles */
+}
+
+#studentTable_filter label input {
+    @apply py-2 mb-5 text-black bg-white rounded-lg outline outline-1; /* append existing styles */
+}

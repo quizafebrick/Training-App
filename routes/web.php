@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ControllerView;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,13 @@ Route::post('/register-save', [UserController::class, 'store'])->name('store');
 
 Route::post('/login-check', [UserController::class, 'check'])->name('user-check');
 
-// * ROUTE FOR ADMIN * //
-Route::group(['middleware' => ['isLoggedIn', 'noBack']], function() {
+Route::group(['middleware' => ['isLoggedIn']], function() {
+    // * ROUTE FOR ADMIN * //
     Route::get('/a', [UserController::class, 'index'])->name('user-index');
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
+
+    // * ROUTE FOR PERSONAL INFORMATION * //
+    Route::post('/a/student-info-save', [StudentController::class, 'studentStore'])->name('student-info-save');
 });
 
 
