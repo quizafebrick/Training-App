@@ -42,7 +42,7 @@
                     {{-- * MODAL TOGGLE * --}}
                     <button
                         class="hidden py-2 pl-3 pr-4 text-white border-b border-gray-100 md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0 md:flex"
-                        onclick="toggleModal()">
+                        onclick="addToggleModal()">
                         Add &nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path fill-rule="evenodd"

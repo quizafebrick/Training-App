@@ -1,3 +1,3 @@
 function editToggleModal() {
-    document.getElementById("edit_modal").classList.toggle("hidden");
+    document.getElementById("edit-modal").classList.toggle("hidden");
 }

@@ -1,4 +1,4 @@
-<div class="fixed top-0 left-0 z-10 hidden w-full" id="edit_modal">
+<div class="fixed top-0 left-0 z-10 hidden w-full" id="add-modal">
     <div
         class="flex items-center justify-center pt-4 pb-20 overflow-auto text-center md:px-4 min-height-100vh sm:block sm:p-0 ">
         <div class="fixed inset-0 transition-opacity">
@@ -147,7 +147,7 @@
                     </button>
                     <button type="button"
                         class="px-4 py-2 mr-2 text-white bg-red-600 rounded hover:bg-red-700 hover:duration-300"
-                        onclick="editToggleModal()">
+                        onclick="addToggleModal()">
                         <i class="fa-sharp fa-solid fa-xmark"></i> Cancel
                     </button>
                 </div>

@@ -28,7 +28,8 @@ Route::group(['middleware' => ['isLoggedIn']], function() {
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
 
     // * ROUTE FOR PERSONAL INFORMATION * //
-    Route::post('/a/student-info-save', [StudentController::class, 'studentStore'])->name('student-info-save');
+    Route::post('/a/student-info-save', [StudentController::class, 'store'])->name('student-info-save');
+    Route::get('/a/edit-student/{id}', [StudentController::class, 'edit'])->name('student-edit');
 });
 
 
