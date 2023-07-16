@@ -22,7 +22,7 @@ Route::post('/register-save', [UserController::class, 'store'])->name('store');
 
 Route::post('/login-check', [UserController::class, 'check'])->name('user-check');
 
-Route::group(['middleware' => ['isLoggedIn']], function() {
+Route::group(['middleware' => ['isLoggedIn']], function () {
     // * ROUTE FOR ADMIN * //
     Route::get('/a', [UserController::class, 'index'])->name('user-index');
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
@@ -30,8 +30,7 @@ Route::group(['middleware' => ['isLoggedIn']], function() {
     // * ROUTE FOR PERSONAL INFORMATION * //
     Route::post('/a/student-info-save', [StudentController::class, 'store'])->name('student-info-save');
     Route::get('/a/edit-student/{id}', [StudentController::class, 'edit'])->name('student-edit');
+    Route::put('/a/update-student/{id}', [StudentController::class, 'update'])->name('student-update');
+    Route::get('/a/delete-student/{id}', [StudentController::class, 'destroy'])->name('student-delete');
+    Route::post('/a/pdf-download', [StudentController::class, 'downloadPDF'])->name('student-download-pdf');
 });
-
-
-
-

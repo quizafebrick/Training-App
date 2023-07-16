@@ -2,8 +2,10 @@ $(function () {
     $("#editBirthday").datepicker({
         onSelect: function (value, ui) {
             var today = new Date(),
-                age = today.getFullYear() - ui.selectedYear;
-            $("#age2").val(age);
+                age2 = today.getFullYear() - ui.selectedYear;
+                age3 = today.getFullYear() - ui.selectedYear;
+            $("#age2").val(age2);
+            $("#age3").val(age3);
         },
 
         changeMonth: true,

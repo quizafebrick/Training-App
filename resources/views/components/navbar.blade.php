@@ -13,11 +13,11 @@
                 TASKS
             </span>
         </a>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-3">
             {{-- * MODAL TOGGLE * --}}
             <button
-                class="flex py-2 pl-3 pr-4 text-white md:hidden md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0"
-                onclick="toggleModal()">
+                class="flex py-2 pl-3 pr-4 text-white md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0"
+                onclick="addToggleModal()">
                 Add &nbsp;
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd"
@@ -25,7 +25,79 @@
                         clip-rule="evenodd" />
                 </svg>
             </button>
-            <button data-collapse-toggle="mega-menu-icons" type="button"
+
+            <div class="hidden md:flex">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown2"
+                    class="flex py-2 pl-3 pr-4 text-white md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0"
+                    type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                            clip-rule="evenodd" />
+                    </svg>&nbsp;
+
+                    {{ $userEmail['email_address'] }}
+
+                    <svg class="w-2.5 h-2 ml-1 mt-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                {{-- * DROPDOWN MENU * --}}
+                <div id="dropdown2"
+                    class="z-10 hidden w-24 text-center bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
+                    <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="{{ route('user-logout') }}"
+                                class="block px-4 py-2 hover:text-blue-600 hover:duration-300">
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {{-- * FLEX IN SMALL SCREEN * --}}
+            <div class="flex md:hidden">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown3"
+                    class="text-white font-medium rounded-lg text-sm py-2.5 text-center inline-flex items-center justify-between w-full hover:text-blue-600 hover:duration-300 pr-3"
+                    type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                {{-- * DROPDOWN MENU * --}}
+                <div id="dropdown3"
+                    class="z-10 hidden w-56 text-center bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
+                    <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <div class="py-2 text-gray-400">
+                                Email: {{ $userEmail['email_address'] }}
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="h-px my-1 bg-gray-200 border-0">
+                        </li>
+                        <li>
+                            <a href="{{ route('user-logout') }}"
+                                class="block px-1 py-2 font-bold hover:text-blue-600 hover:duration-300">
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {{-- <button data-collapse-toggle="mega-menu-icons" type="button"
                 class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="mega-menu-icons" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -34,76 +106,8 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
-            </button>
+            </button> --}}
         </div>
-        <div id="mega-menu-icons" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-            <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                <li>
-                    {{-- * MODAL TOGGLE * --}}
-                    <button
-                        class="hidden py-2 pl-3 pr-4 text-white border-b border-gray-100 md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0 md:flex"
-                        onclick="addToggleModal()">
-                        Add &nbsp;
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                            <path fill-rule="evenodd"
-                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-white border-b border-gray-100 md:hover:bg-transparent md:border-0 hover:text-blue-600 hover:duration-300 md:p-0"
-                        aria-current="page">PDF</a>
-                </li>
-                <li>
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                        class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center md:p-0 justify-between w-full pl-3 pr-4 border-b md:border-none md:w-auto text-md hover:text-blue-600 hover:duration-300"
-                        type="button">Excel
-                        <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg></button>
-                    <!-- Dropdown menu -->
-                    <div id="dropdown"
-                        class="z-10 hidden w-20 bg-gray-900 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-center text-white" aria-labelledby="dropdownDefaultButton">
-                            <li>
-                                <a href="" class="block px-4 py-2 hover:text-blue-600 hover:duration-300">
-                                    Import
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="block px-4 py-2 hover:text-blue-600 hover:duration-300">
-                                    Export
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown2"
-                        class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center md:p-0 justify-between w-full pl-3 pr-4 border-b md:border-none md:w-auto hover:text-blue-600 hover:duration-300"
-                        type="button">{{ $userEmail['email_address'] }} <svg class="w-2.5 h-2.5 ml-2.5"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg></button>
-                    {{-- * DROPDOWN MENU * --}}
-                    <div id="dropdown2"
-                        class="z-10 hidden w-24 text-center bg-gray-900 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
-                            <li>
-                                <a href="{{ route('user-logout') }}"
-                                    class="block px-4 py-2 hover:text-blue-600 hover:duration-300">
-                                    Sign out
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
+
     </div>
 </nav>

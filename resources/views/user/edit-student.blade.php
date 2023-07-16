@@ -5,14 +5,16 @@
         @include('components.navbar')
         @include('components.add-modal-view')
     </div>
+
     <div class="flex items-center justify-center">
         <div class="mx-5 mt-5 mb-5 bg-gray-200 rounded-lg shadow-xl">
-            <form action="{{ route('student-info-save') }}" method="POST">
+            <form action="{{ route('student-update', $studentDetails->id) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="inline-block mx-5 mt-5 mb-5 text-left transition-all transform bg-whiteshadow-xl w-fit align-center sm:align-center"
                     role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                     <div class="pt-5 text-2xl font-bold text-center text-black underline bg-white rounded-t-lg">
-                        Student Information
+                        Update Student Information
                     </div>
                     <div class="grid grid-cols-2 px-5 pt-5 bg-white gap-x-3 gap-y-3">
                         <div class="">
@@ -79,8 +81,8 @@
                             <input type="text" name="contact_no"
                                 class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                                 onkeypress="return (event.charCode > 47 &&
-                                    event.charCode < 58)"
-                                value="{{ $studentDetails->contact_no }}">
+                            event.charCode < 58)"
+                                value="{{ $studentDetails->contact_no }}" minlength="11" maxlength="11">
                             <span class="py-2 text-sm font-medium text-red-500">
                                 @error('contact_no')
                                     {{ $message }}
@@ -125,9 +127,10 @@
 
                         <div class="">
                             <label for="default-input" class="block text-sm font-medium text-black">Age</label>
-                            <input type="text" id="age2" name="age" aria-label="disabled input"
+                            <input type="text" id="age2" aria-label="disabled input"
                                 class="mb-6 outline outline-1 bg-gray-200 text-black text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
                                 readonly placeholder="{{ $studentDetails->age }}">
+                            <input type="hidden" id="age3" name="age" value="{{ $studentDetails->age }}">
                         </div>
                     </div>
 
@@ -163,6 +166,4 @@
             </form>
         </div>
     </div>
-
-    <script src="{{ asset('js/datepicker.js') }}"></script>
 @endsection

@@ -45,15 +45,14 @@ class UserController extends Controller
     public function index(User $user, Student $student)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
-        $students = $student->get();
+        $students = $student->orderBy('id', 'ASC')->get();
 
         return view('user.index', $userEmail, compact('students'));
     }
 
     public function logout()
     {
-        if (session()->has('userEmail'))
-        {
+        if (session()->has('userEmail')) {
             session()->pull('userEmail');
 
             return to_route('login');

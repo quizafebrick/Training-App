@@ -77,7 +77,7 @@
                             class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                             onkeypress="return (event.charCode > 47 &&
                             event.charCode < 58)"
-                            value="{{ old('contact_no') }}">
+                            value="{{ old('contact_no') }}" minlength="11" maxlength="11">
                         <span class="py-2 text-sm font-medium text-red-500">
                             @error('contact_no')
                                 {{ $message }}

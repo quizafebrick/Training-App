@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email_address')->unique();
             $table->string('birthday');
-            $table->string('age');
+            $table->string('age')->nullable();
             $table->string('address');
             $table->timestamps();
         });

@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AccountSeeder::class);
 
-        Student::factory(10)->create();
+        Student::factory(50)->create();
     }
 }

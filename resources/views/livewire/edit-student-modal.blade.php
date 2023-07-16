@@ -3,7 +3,7 @@
 </div>
 <div class="fixed inset-0 transition-opacity bg-white shadow-black backdrop-opacity-70">
     <div class="bg-gray-300 rounded-xl ">
-        <form action="{{ route('student-info-save') }}" method="POST">
+        <form action="{{ route('student-update') }}" method="POST">
             @csrf
             <div class="inline-block mx-5 mt-5 mb-5 text-left transition-all transform bg-whiteshadow-xl w-fit align-center sm:align-center"
                 role="dialog" aria-modal="true" aria-labelledby="modal-headline">

@@ -21,7 +21,7 @@ class StudentFactory extends Factory
             'firstname' => Str::upper(fake()->firstName()),
             'middlename' => Str::upper(fake()->lastName()),
             'lastname' => Str::upper(fake()->lastName()),
-            'contact_no' => fake()->unique()->numerify('+63###########'),
+            'contact_no' => fake()->unique()->numerify('09#########'),
             'gender' => fake()->randomElement(['MALE', 'FEMALE']),
             'birthday' => fake()->dateTimeBetween('1920-01-01', 'now')->format('d/m/Y'),
             'age' => fake()->numerify('##'),
