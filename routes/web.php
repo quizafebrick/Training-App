@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// * ROUTE FOR PUBLIC VIEWING * //
 Route::get('/', [ControllerView::class, 'login'])->name('login');
 Route::get('/register', [ControllerView::class, 'register'])->name('register');
 Route::post('/register-save', [UserController::class, 'store'])->name('store');
@@ -27,10 +28,12 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
     Route::get('/a', [UserController::class, 'index'])->name('user-index');
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
 
-    // * ROUTE FOR PERSONAL INFORMATION * //
+    // * ROUTE FOR STUDENT INFORMATION * //
     Route::post('/a/student-info-save', [StudentController::class, 'store'])->name('student-info-save');
     Route::get('/a/edit-student/{id}', [StudentController::class, 'edit'])->name('student-edit');
     Route::put('/a/update-student/{id}', [StudentController::class, 'update'])->name('student-update');
     Route::get('/a/delete-student/{id}', [StudentController::class, 'destroy'])->name('student-delete');
-    Route::post('/a/pdf-download', [StudentController::class, 'downloadPDF'])->name('student-download-pdf');
+    Route::get('/a/pdf-download', [StudentController::class, 'downloadPDF'])->name('student-download-pdf');
+    Route::get('/a/excel-export', [StudentController::class, 'exportExcel'])->name('student-download-excel');
+    Route::post('/a/excel-import', [StudentController::class, 'importExcel'])->name('student-import-excel');
 });

@@ -10,6 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'students';
+    // protected $table = 'students';
 
+    protected $hidden = ['created_at', 'updated_at'];
 }

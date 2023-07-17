@@ -11,7 +11,7 @@
 }
 
 .dataTable thead tr th {
-    @apply text-center
+    @apply text-center;
 }
 
 .page-break {

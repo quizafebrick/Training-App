@@ -142,7 +142,7 @@
                 </div>
                 <div class="px-4 py-3 text-right bg-gray-200 rounded-b-lg">
                     <button type="submit"
-                        class="px-4 py-2 mr-2 text-white bg-blue-500 rounded hover:bg-blue-700 hover:duration-300">
+                        class="px-4 py-2 mr-2 text-white bg-blue-700 rounded hover:bg-blue-800 hover:duration-300">
                         <i class="fas fa-plus"></i> Create
                     </button>
                     <button type="button"

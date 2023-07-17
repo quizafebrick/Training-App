@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentsExport;
 use App\Models\User;
 use App\Models\Student;
-// use Barryvdh\DomPDF\Facade\Pdf;
-use PDF;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentInformationRequest;
 use App\Http\Requests\UpdateStudentInformationRequest;
+use App\Imports\StudentsImport;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -28,7 +29,7 @@ class StudentController extends Controller
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
         $studentDetails = $student->findOrFail($id);
 
-        return view('user.edit-student', $userEmail, compact('studentDetails'));
+        return view('components.edit-student', $userEmail, compact('studentDetails'));
     }
 
     public function update(UpdateStudentInformationRequest $request, Student $student, $id)
@@ -52,10 +53,27 @@ class StudentController extends Controller
     {
         $students = $student->get();
 
-        $pdfDownload = FacadePdf::loadView('table-bootstrap.pdf-table-export', array('students' => $students))->setOptions(['defaultFont' => 'sans-serif', 'isHtml5ParserEnabled' => true,]);
+        $pdfDownload = FacadePdf::loadView('table-bootstrap.pdf-table-export', array('students' => $students))->setOption(['defaultFont' => 'sans-serif'])->setPaper('legal', 'landscape');
 
-        return $pdfDownload->download('all-students.pdf');
+        return $pdfDownload->download('all_students.pdf');
+    }
 
-        // return view('table-bootstrap.pdf-table-export', compact('students'));
+    public function exportExcel()
+    {
+        return Excel::download(new StudentsExport, 'all_students.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate(['students' => 'required']);
+
+        try {
+            Excel::import(new StudentsImport, $request->file('students'));
+        } catch (\InvalidArgumentException $ex) {
+            return back()->with("error", "Wrong header row/data row format in some column.");
+        } catch (\Throwable $ex) {
+            return back()->with("error", "Something went wrong, check your file or might be same row data has been saved");
+        }
+        return to_route('user-index')->with("success", "Import Successful!");
     }
 }
