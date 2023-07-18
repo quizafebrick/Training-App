@@ -4,6 +4,7 @@
         <div class="fixed inset-0 transition-opacity">
             <div class="absolute inset-0 bg-gray-900 opacity-75" />
         </div>
+
         <form action="{{ route('student-import-excel') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="inline-block w-11/12 mx-5 mt-5 mb-10 text-left transition-all transform bg-white rounded-lg shadow-xl md:w-2/4 align-center sm:align-center"
@@ -11,6 +12,18 @@
                 <div class="pt-5 text-2xl font-bold text-center text-black underline bg-white rounded-t-lg">Import Excel
                     File
                 </div>
+
+                {{-- * ERROR MESSAGE * --}}
+                @if ($errors->any())
+                    <div class="bg-white">
+                        <div class="grid grid-cols-3 mx-5 text-white bg-red-400 rounded-md">
+                            @foreach ($errors->all() as $error)
+                                <div class="mx-5 text-xs md:text-sm">&bull; {{ $error }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 <div class="px-5 pt-5 bg-white">
                     <div class="">
                         <label class="block mb-2 text-sm font-bold text-black" for="default_size">Import File:</label>

@@ -23,9 +23,9 @@ class StudentFactory extends Factory
             'lastname' => Str::upper(fake()->lastName()),
             'contact_no' => fake()->unique()->numerify('09#########'),
             'gender' => fake()->randomElement(['MALE', 'FEMALE']),
-            'birthday' => fake()->dateTimeBetween('1920-01-01', 'now')->format('d/m/Y'),
+            'birthday' => fake()->dateTimeBetween('1920-01-01', 'now')->format('m-d-Y'),
             'age' => fake()->numerify('##'),
-            'email_address' => fake()->unique()->safeEmail(),
+            'email_address' => preg_replace('/@(example\.org|example\.net|example\.com)/', '@gmail.com', fake()->unique()->safeEmail()),
             'address' => Str::upper(fake()->address())
         ];
     }

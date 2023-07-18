@@ -22,15 +22,22 @@ class StudentInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstname' => 'required',
-            'middlename' => 'required',
-            'lastname' => 'required',
-            'contact_no' => 'required',
-            'gender' => 'required|string',
+            'firstname' => 'required|string',
+            'middlename' => 'required|string',
+            'lastname' => 'required|string',
+            'contact_no' => ['required','regex:/^(?:\+63|09)/', 'max:13', 'min:11'],
+            'gender' => 'required',
             'birthday' => 'required',
             'age' => 'required',
-            'email_address' => 'required|email:filter|unique:students,email_address',
+            'email_address' => 'required|email:filter|unique:students,email_address|ends_with:@gmail.com',
             'address' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'contact_no.regex' => 'The contact no. must starts with +63 or 09',
         ];
     }
 }

@@ -10,7 +10,7 @@
                     clip-rule="evenodd" />
             </svg> &nbsp; &nbsp;
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                TASKS
+                TASK
             </span>
         </a>
         <div class="flex items-center justify-between gap-3">
@@ -96,18 +96,6 @@
                     </ul>
                 </div>
             </div>
-
-            {{-- <button data-collapse-toggle="mega-menu-icons" type="button"
-                class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                aria-controls="mega-menu-icons" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M1 1h15M1 7h15M1 13h15" />
-                </svg>
-            </button> --}}
         </div>
-
     </div>
 </nav>

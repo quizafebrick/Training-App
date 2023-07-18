@@ -1,5 +1,5 @@
-$(document).ready(function() {
-            $('#studentTable').DataTable({
-                scrollX: true,
-            });
-        });
+$(document).ready(function () {
+    $("#studentTable").DataTable({
+        scrollX: true,
+    });
+});

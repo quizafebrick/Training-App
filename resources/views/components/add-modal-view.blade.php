@@ -1,4 +1,4 @@
-<div class="fixed top-0 left-0 z-10 hidden w-full" id="add-modal">
+<div class="fixed top-0 left-0 z-10 hidden w-full scroll-auto" id="add-modal">
     <div
         class="flex items-center justify-center pt-4 pb-20 overflow-auto text-center md:px-4 min-height-100vh sm:block sm:p-0 ">
         <div class="fixed inset-0 transition-opacity">
@@ -11,8 +11,18 @@
                 <div class="pt-5 text-2xl font-bold text-center text-black underline bg-white rounded-t-lg">Add
                     Information
                 </div>
-                <div class="grid grid-cols-2 px-5 pt-5 bg-white gap-x-3 gap-y-3">
-                    <div class="">
+                {{-- * ERROR MESSAGE * --}}
+                @if ($errors->any())
+                    <div class="bg-white">
+                        <div class="grid grid-cols-2 mx-5 text-white bg-red-400 rounded-md">
+                            @foreach ($errors->all() as $error)
+                                <div class="mx-5 text-xs md:text-sm">&bull; {{ $error }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                <div class="grid grid-cols-2 px-5 pt-3 bg-white gap-x-3 gap-y-3">
+                    <div>
                         <label for="firstname" class="block mb-2 text-sm font-medium text-black">First
                             Name</label>
                         <input type="text" name="firstname"
@@ -20,14 +30,9 @@
                             onkeypress="return (event.charCode > 64 &&
                             event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                             onkeyup="this.value = this.value.toUpperCase()" value="{{ old('firstname') }}">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('firstname')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="middlename" class="block mb-2 text-sm font-medium text-black">Middle
                             Name</label>
                         <input type="text" name="middlename"
@@ -35,14 +40,9 @@
                             onkeypress="return (event.charCode > 64 &&
                             event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                             onkeyup="this.value = this.value.toUpperCase()" value="{{ old('middlename') }}">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('middlename')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="lastname" class="block mb-2 text-sm font-medium text-black">Last
                             Name</label>
                         <input type="text" name="lastname"
@@ -50,54 +50,36 @@
                             onkeypress="return (event.charCode > 64 &&
                             event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                             onkeyup="this.value = this.value.toUpperCase()" value="{{ old('lastname') }}">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('lastname')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
 
                     <div class="">
                         <label for="gender" class="block mb-2 text-sm font-medium text-black">Gender </label>
-                        <input type="text" name="gender"
-                            class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
-                            onkeypress="return (event.charCode > 64 &&
-                            event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
-                            onkeyup="this.value = this.value.toUpperCase()" value="{{ old('gender') }}">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('gender')
-                                {{ $message }}
-                            @enderror
-                        </span>
+                        <select name="gender" class="w-full py-2 text-sm text-black rounded-lg outline outline-1"
+                            value="{{ old('gender') }}">
+                            <option selected disabled>Choose Gender:</option>
+                            <option value="Male" class="hover:bg-blue-600 hover:duration-300">Male</option>
+                            <option value="Female" class="hover:bg-blue-600 hover:duration-300">Female</option>
+                        </select>
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="contact_no" class="block text-sm font-medium text-black">Contact No. </label>
                         <input type="text" name="contact_no"
                             class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                             onkeypress="return (event.charCode > 47 &&
-                            event.charCode < 58)"
-                            value="{{ old('contact_no') }}" minlength="11" maxlength="11">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('contact_no')
-                                {{ $message }}
-                            @enderror
-                        </span>
+                            event.charCode < 58) || (event.charCode > 42 &&
+                            event.charCode < 44)"
+                            value="{{ old('contact_no') }}" minlength="11" maxlength="13">
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="email_address" class="block text-sm font-medium text-black">Email Address</label>
                         <input type="email" name="email_address"
                             class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                             value="{{ old('email_address') }}">
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('email_address')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="default-input" class="block text-sm font-medium text-black">Birthday
                         </label>
                         <div class="relative max-w-sm">
@@ -111,15 +93,10 @@
                             <input type="text" id="birthday" name="birthday"
                                 class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
                                 placeholder="Select date" onkeydown="return false" value="{{ old('birthday') }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('birthday')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
                     </div>
 
-                    <div class="">
+                    <div>
                         <label for="default-input" class="block text-sm font-medium text-black">Age</label>
                         <input type="text" id="age" name="age" aria-label="disabled input"
                             class="mb-6 outline outline-1 bg-gray-200 text-black text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
@@ -133,11 +110,6 @@
                         <textarea id="message" rows="4" name="address"
                             class="block p-2.5 w-full text-sm text-black bg-white outline outline-1 rounded-lg resize-none"
                             placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ old('address') }}</textarea>
-                        <span class="py-2 text-sm font-medium text-red-500">
-                            @error('address')
-                                {{ $message }}
-                            @enderror
-                        </span>
                     </div>
                 </div>
                 <div class="px-4 py-3 text-right bg-gray-200 rounded-b-lg">
