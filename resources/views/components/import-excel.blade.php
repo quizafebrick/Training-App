@@ -13,23 +13,12 @@
                     File
                 </div>
 
-                {{-- * ERROR MESSAGE * --}}
-                @if ($errors->any())
-                    <div class="bg-white">
-                        <div class="grid grid-cols-3 mx-5 text-white bg-red-400 rounded-md">
-                            @foreach ($errors->all() as $error)
-                                <div class="mx-5 text-xs md:text-sm">&bull; {{ $error }}</div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
                 <div class="px-5 pt-5 bg-white">
                     <div class="">
                         <label class="block mb-2 text-sm font-bold text-black" for="default_size">Import File:</label>
                         <input
                             class="block w-full text-lg text-black bg-white border border-gray-300 rounded-lg cursor-pointer"
-                            id="large_size" name="students" type="file">
+                            id="large_size" name="students" type="file" accept=".xlsx, .xls">
                         <span class="py-2 text-sm font-medium text-red-500">
                             @error('import_excel')
                                 {{ $message }}

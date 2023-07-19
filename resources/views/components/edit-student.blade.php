@@ -6,6 +6,9 @@
         @include('components.add-modal-view')
     </div>
 
+    {{-- ! ERROR MESSAGE ! --}}
+    @include('components.error-message')
+
     <div class="flex items-center justify-center">
         <div class="mx-5 mt-5 mb-5 bg-gray-200 rounded-lg shadow-xl">
             <form action="{{ route('student-update', $studentDetails->id) }}" method="POST">
@@ -16,6 +19,8 @@
                     <div class="pt-5 text-2xl font-bold text-center text-black underline bg-white rounded-t-lg">
                         Update Student Information
                     </div>
+
+
                     <div class="grid grid-cols-2 px-5 pt-5 bg-white gap-x-3 gap-y-3">
                         <div class="">
                             <label for="firstname" class="block mb-2 text-sm font-medium text-black">First
@@ -25,11 +30,6 @@
                                 onkeypress="return (event.charCode > 64 &&
                                     event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                                 onkeyup="this.value = this.value.toUpperCase()" value="{{ $studentDetails->firstname }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('firstname')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
 
                         <div class="">
@@ -40,11 +40,6 @@
                                 onkeypress="return (event.charCode > 64 &&
                                     event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                                 onkeyup="this.value = this.value.toUpperCase()" value="{{ $studentDetails->middlename }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('middlename')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
 
                         <div class="">
@@ -55,25 +50,19 @@
                                 onkeypress="return (event.charCode > 64 &&
                                     event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
                                 onkeyup="this.value = this.value.toUpperCase()" value="{{ $studentDetails->lastname }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('lastname')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
 
                         <div class="">
                             <label for="gender" class="block mb-2 text-sm font-medium text-black">Gender </label>
-                            <input type="text" name="gender"
-                                class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
-                                onkeypress="return (event.charCode > 64 &&
-                                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
-                                onkeyup="this.value = this.value.toUpperCase()" value="{{ $studentDetails->gender }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('gender')
-                                    {{ $message }}
-                                @enderror
-                            </span>
+                            <select name="gender" class="w-full py-2 text-sm text-black rounded-lg outline outline-1">
+                                <option disabled>-- Currently Selected --</option>
+                                <option selected value="{{ $studentDetails->gender }}" class="text-gray-500">
+                                    -- {{ $studentDetails->gender }} --
+                                </option>
+                                <option disabled>-- Select New Update --</option>
+                                <option value="Male" class="hover:bg-blue-600 hover:duration-300">Male</option>
+                                <option value="Female" class="hover:bg-blue-600 hover:duration-300">Female</option>
+                            </select>
                         </div>
 
                         <div class="">
@@ -83,11 +72,6 @@
                                 onkeypress="return (event.charCode > 47 &&
                             event.charCode < 58)"
                                 value="{{ $studentDetails->contact_no }}" minlength="11" maxlength="11">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('contact_no')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
 
                         <div class="">
@@ -96,11 +80,6 @@
                             <input type="email" name="email_address"
                                 class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                                 value="{{ $studentDetails->email_address }}">
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('email_address')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
 
                         <div class="">
@@ -117,11 +96,6 @@
                                 <input type="text" id="editBirthday" name="birthday"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
                                     placeholder="Select date" value="{{ $studentDetails->birthday }}">
-                                <span class="py-2 text-sm font-medium text-red-500">
-                                    @error('birthday')
-                                        {{ $message }}
-                                    @enderror
-                                </span>
                             </div>
                         </div>
 
@@ -140,11 +114,6 @@
                             <textarea id="message" rows="4" name="address"
                                 class="block p-2.5 w-full text-sm text-black bg-white outline outline-1 rounded-lg resize-none"
                                 placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ $studentDetails->address }}</textarea>
-                            <span class="py-2 text-sm font-medium text-red-500">
-                                @error('address')
-                                    {{ $message }}
-                                @enderror
-                            </span>
                         </div>
                     </div>
                     <div class="flex items-center justify-center px-4 py-3 text-right bg-gray-200 rounded-b-lg">

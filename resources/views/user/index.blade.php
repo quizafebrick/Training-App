@@ -8,7 +8,11 @@
     <div class="mt-5 text-4xl font-bold text-center text-black underline">
         Student's Information
     </div>
-    <div class="flex items-center justify-center px-1 mx-5 mt-10 md:justify-start md:mx-20">
+
+    {{-- ! ERROR MESSAGE ! --}}
+    @include('components.error-message')
+
+    <div class="flex items-center justify-center px-1 mx-5 mt-5 md:justify-start md:mx-20">
         <button
             class="px-5 py-2 mb-2 mr-2 md:text-sm text-[13px] font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 hover:duration-300"
             onclick="importToggleModal()">

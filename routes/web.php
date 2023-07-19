@@ -29,7 +29,6 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
 
     // * ROUTE FOR STUDENT INFORMATION * //
-    Route::get('/a/get-students', [StudentController::class, 'getStudents'])->name('getStudents');
     Route::post('/a/student-info-save', [StudentController::class, 'store'])->name('student-info-save');
     Route::get('/a/edit-student/{id}', [StudentController::class, 'edit'])->name('student-edit');
     Route::put('/a/update-student/{id}', [StudentController::class, 'update'])->name('student-update');

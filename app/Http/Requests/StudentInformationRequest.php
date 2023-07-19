@@ -22,10 +22,10 @@ class StudentInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstname' => 'required|string',
-            'middlename' => 'required|string',
-            'lastname' => 'required|string',
-            'contact_no' => ['required','regex:/^(?:\+63|09)/', 'max:13', 'min:11'],
+            'firstname' => 'required|regex:/^[A-Za-z-]+$/',
+            'middlename' => 'required|regex:/^[A-Za-z-]+$/',
+            'lastname' => 'required|regex:/^[A-Za-z-]+$/',
+            'contact_no' => ['required','regex:/^(?:\+63|09)\d{9,11}$/', 'max:13', 'min:11'],
             'gender' => 'required',
             'birthday' => 'required',
             'age' => 'required',

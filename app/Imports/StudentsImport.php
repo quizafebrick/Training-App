@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 
 class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
 {
+    // use SkipsErrors;
     /**
     * @param array $row
     *
@@ -23,15 +24,6 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
     {
         foreach ($rows as $row)
         {
-            // $firstname = $row['firstname'];
-            // $middlename = $row['middlename'];
-            // $lastname = $row['lastname'];
-            // $contact_no = $row['contact_no'];
-            // $gender = $row['gender'];
-
-            // $email_address = $row['email_address'];
-            // $address = $row['address'];
-
             $birthday = $row['birthday'];
             $age = $this->calculateAge($birthday);
 
@@ -57,23 +49,24 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
         return $age;
     }
 
-    public function uniqueBy()
-    {
-        return 'email_address';
-    }
-
     public function rules(): array
     {
         return [
             '*.firstname' => ['required', 'regex:/^[A-Za-z-]+$/'],
-            '*.middlename' => ['required', 'string'],
-            '*.lastname' => ['required', 'string'],
-            '*.contact_no' => ['required','regex:/^(?:\+63|09)/', 'max:13', 'min:11'],
-            '*.gender' => ['required', 'string'],
+            '*.middlename' => ['required', 'regex:/^[A-Za-z-]+$/'],
+            '*.lastname' => ['required', 'regex:/^[A-Za-z-]+$/'],
+            '*.contact_no' => ['required','regex:/^(?:\+63|09)\d{9,11}$/', 'max:13', 'min:11'],
+            '*.gender' => ['required', 'regex:/^[A-Za-z]+$/'],
             '*.birthday' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
-            // '*.age' => ['required'],
-            '*.email_address' => ['required', 'email:filter|unique:students,email_address', 'ends_with:@gmail.com'],
+            '*.email_address' => ['required', 'email:filter', 'unique:students,email_address', 'ends_with:@gmail.com'],
             '*.address' => ['required']
+        ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+            'email_address.ends_with' => 'The email_address must end only with: @gmail.com',
         ];
     }
 }

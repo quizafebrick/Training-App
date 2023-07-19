@@ -11,7 +11,6 @@ use App\Http\Requests\UpdateStudentInformationRequest;
 use App\Imports\StudentsImport;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
 
 class StudentController extends Controller
 {
@@ -56,7 +55,7 @@ class StudentController extends Controller
     {
         $students = $student->get();
 
-        $pdfDownload = FacadePdf::loadView('table-bootstrap.pdf-table-export', array('students' => $students))->setOption(['defaultFont' => 'sans-serif'])->setPaper('legal', 'landscape');
+        $pdfDownload = FacadePdf::loadView('components.pdf-table-export', array('students' => $students))->setOption(['defaultFont' => 'sans-serif'])->setPaper('legal', 'landscape');
 
         return $pdfDownload->download('all_students.pdf');
     }
@@ -70,25 +69,14 @@ class StudentController extends Controller
     {
         $request->validate(['students' => 'required']);
 
-        $import = Excel::import(new StudentsImport, $request->file('students'));
-        // dd($import->errors());
+        try {
+            Excel::import(new StudentsImport, $request->file('students'));
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
 
-        // try {
-        //     Excel::import(new StudentsImport, $request->file('students'));
-        // } catch (\InvalidArgumentException $ex) {
-        //     return back()->with("error", "Wrong header row/data row format in some column.");
-        // } catch (\Throwable $ex) {
-        //     return back()->with("error", "Something went wrong, check your file or might be same row data has been saved");
-        // }
+            return back()->with("failures", $failures);
+        }
+
         return to_route('user-index')->with("success", "Import Successful!");
-    }
-
-    public function getStudents(Student $student)
-    {
-        $students = $student->all();
-
-        return response()->json([
-            'students' => $students
-        ]);
     }
 }

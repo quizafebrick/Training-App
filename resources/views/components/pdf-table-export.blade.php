@@ -1,4 +1,4 @@
-@extends('table-bootstrap.components.layouts')
+@extends('components.layouts')
 
 <style>
     #customers {
@@ -33,7 +33,7 @@
 </style>
 
 @section('pdf-download-view')
-    <h1 class="pb-3 text-center">ALL STUDENTS</h1>
+    <h1 class="pb-3 text-center underline"><u>ALL STUDENTS</u></h1>
 
     <table id="customers">
         <tr>
