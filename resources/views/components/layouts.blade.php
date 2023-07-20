@@ -9,11 +9,6 @@
     {{-- * SWEETALERT2 * --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {{-- * FONT AWESOME * --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
-
     {{-- * JQUERY CDN * --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
         integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
@@ -38,8 +33,10 @@
 
     {{-- * LOGGED IN USER * --}}
     @yield('user-index')
+    @yield('add-student')
     @yield('edit-student')
     @yield('pdf-download-view')
+    @yield('user-index-students')
 
     @include('components.scripts')
 </body>

@@ -45,9 +45,19 @@ class UserController extends Controller
     public function index(User $user, Student $student)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
-        $students = $student->orderBy('id', 'ASC')->get();
 
-        return view('user.index', $userEmail, compact('students'));
+        $countMale = $student->where('gender', 'Male')->count();
+        $countFemale = $student->where('gender', 'Female')->count();
+
+        $studentsData = $student->selectRaw('DATE_FORMAT(created_at, "%b-%Y") as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('created_at')
+            ->get();
+
+        $months = $studentsData->pluck('month')->toArray();
+        $counts = $studentsData->pluck('count')->toArray();
+
+        return view('user.index', $userEmail, compact('countMale', 'countFemale', 'months', 'counts'));
     }
 
     public function logout()

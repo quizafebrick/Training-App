@@ -6,6 +6,7 @@ namespace App\Imports;
 use Carbon\Carbon;
 use App\Models\Student;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -20,14 +21,42 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
+    private $studentNumberCounter;
+
+    public function __construct()
+    {
+        // * CHECK IF THERE ARE NO EXISTING STUDENT RECORDS IN THE DATABASE * //
+        if (!Student::max('student_no')) {
+            // * IF THERE ARE NO EXISTING RECORDS, START THE COUNTER FROM 1 * //
+            $this->studentNumberCounter = 1;
+        }
+        // * IF THERE ARE EXISTING RECORDS, FIND THE HIGHEST STUDENT NUMBER * //
+        $highestStudentNo = Student::max('student_no');
+
+        // * SPLIT THE HIGHEST STUDENT NUMBER INTO YEAR AND COUNTER PARTS * //
+        $parts = explode('-', $highestStudentNo);
+
+        // * EXTRACT THE COUNTER PART AND CONVERT IT TO AN INTEGER * //
+        $lastCounter = (int) $parts[1];
+
+        // * INCREMENT THE COUNTER TO PREPARE FOR THE NEXT STUDENT NUMBER * //
+        $this->studentNumberCounter = $lastCounter + 1;
+
+    }
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row)
         {
+            $lastname = $row['lastname'];
             $birthday = $row['birthday'];
             $age = $this->calculateAge($birthday);
+            $password = Hash::make(strtolower($lastname));
+
+            $studentNumber = '2023-' . str_pad($this->studentNumberCounter++, 5, '0', STR_PAD_LEFT);
 
             Student::create([
+                'student_no' => $studentNumber,
                 'firstname' => $row['firstname'],
                 'middlename' => $row['middlename'],
                 'lastname' => $row['lastname'],
@@ -36,6 +65,7 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
                 'birthday' => $birthday,
                 'age' => $age,
                 'email_address' => $row['email_address'],
+                'password' => $password,
                 'address' => $row['address']
             ]);
         }

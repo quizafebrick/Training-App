@@ -33,11 +33,14 @@
 </style>
 
 @section('pdf-download-view')
-    <h1 class="pb-3 text-center underline"><u>ALL STUDENTS</u></h1>
+    <div class="pb-3 font-bold text-center underline">
+        <u>ALL STUDENTS</u>
+    </div>
 
     <table id="customers">
         <tr>
             <th>No.</th>
+            <th>Student No.</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Middlename</th>
@@ -51,6 +54,7 @@
         @foreach ($students as $student)
             <tr class="text-center">
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $student->student_no }}</td>
                 <td>{{ $student->firstname }}</td>
                 <td>{{ $student->middlename }}</td>
                 <td>{{ $student->lastname }}</td>

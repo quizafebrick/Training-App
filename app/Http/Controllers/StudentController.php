@@ -2,21 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\StudentsExport;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Exports\StudentsExport;
+use App\Imports\StudentsImport;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\StudentInformationRequest;
 use App\Http\Requests\UpdateStudentInformationRequest;
-use App\Imports\StudentsImport;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+    public function students(User $user, Student $student)
+    {
+        $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
+        $students = $student->orderBy('id', 'ASC')->get();
+
+        return view('user.students', $userEmail, compact('students'));
+    }
+
+    public function create(User $user)
+    {
+        $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
+
+        return view('components.add-student', $userEmail);
+    }
+
     public function store(StudentInformationRequest $request, Student $student)
     {
         $requests = $request->validated();
+
+        // * GET THE MAXIMUM EXISTING STUDENT NUMBER FROM THE DATABASE * //
+        $maxStudentNumber = $student->max('student_no');
+
+        // * EXTRACT THE COUNTER PART AND INCREMENT IT FOR THE NEXT STUDENT NUMBER * //
+        if ($maxStudentNumber === null) {
+            $counter = 1;
+        }
+        $counter = (int) explode('-', $maxStudentNumber)[1] + 1;
+
+        // * GENERATE THE STUDENT NUMBER IN THE FORMAT '2023-00001' IF NOT PROVIDED IN THE REQUEST * //
+        if (!isset($requests['student_no'])) {
+            $studentNumber = '2023-' . str_pad($counter, 5, '0', STR_PAD_LEFT);
+        }
+        $requests['student_no'] = $studentNumber;
+
+        $requests['password'] = Hash::make(strtolower($requests['lastname']));
 
         $save = $student->create($requests);
 
@@ -41,14 +75,14 @@ class StudentController extends Controller
         if (!$update) {
             return redirect()->with("error", "Updating Failed");
         }
-        return to_route('user-index')->with("success", "Update Successfull");
+        return to_route('student-list')->with("success", "Update Successfull");
     }
 
     public function destroy(Student $student, $id)
     {
         $student->findOrFail($id)->delete();
 
-        return to_route('user-index')->with("success", "Delete Successful!");
+        return to_route('student-list')->with("success", "Delete Successful!");
     }
 
     public function downloadPDF(Student $student)
@@ -77,6 +111,6 @@ class StudentController extends Controller
             return back()->with("failures", $failures);
         }
 
-        return to_route('user-index')->with("success", "Import Successful!");
+        return to_route('student-list')->with("success", "Import Successful!");
     }
 }
