@@ -10,7 +10,7 @@
 ## DO THIS AFTER CLONE THE PROJECT
 
 ```composer
-composer install && npm install && cp .env.example .env && php artisan key:generate && composer dump-autoload
+composer install && npm install && cp .env.example .env && php artisan key:generate && composer dump-autoload && php artisan storage:link
 ```
 
 ## OR DO THIS EACH LINE
@@ -21,6 +21,7 @@ npm install
 cp .env.example .env
 php artisan key:generate
 composer dump-autoload
+php artisan storage:link
 ```
 
 ## About Laravel

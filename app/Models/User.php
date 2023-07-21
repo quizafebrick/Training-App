@@ -13,7 +13,4 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'users';
-
-
 }

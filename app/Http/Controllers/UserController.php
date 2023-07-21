@@ -12,18 +12,44 @@ use App\Models\Student;
 
 class UserController extends Controller
 {
-    public function store(RegistrationRequest $request, User $user)
+
+    public function create(User $user)
     {
+        $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
 
-        $requests = $request->validated();
+        return view('user.admin', $userEmail);
+    }
 
-        $requests['password'] = Hash::make($requests['password']);
-        $save = $user->create($requests);
+    public function storeLoggedInAdmin(RegistrationRequest $request, User $user)
+    {
+        $save = $this->storeRequest($request, $user);
 
         if (!$save) {
             return redirect()->with("error", "Registration Failed");
         }
+
+        return to_route('user-index')->with("success", "User Creation Successfull");
+    }
+
+    public function storePublic(RegistrationRequest $request, User $user)
+    {
+        $save = $this->storeRequest($request, $user);
+
+        if (!$save) {
+            return redirect()->with("error", "Registration Failed");
+        }
+
         return to_route('login')->with("success", "Registration Successfull");
+    }
+
+    public function storeRequest(RegistrationRequest $request, User $user)
+    {
+        $requests = $request->validated();
+
+        $requests['password'] = Hash::make($requests['password']);
+        $admin = $user->create($requests);
+
+        return $admin;
     }
 
     public function check(LoginRequest $request, User $user)

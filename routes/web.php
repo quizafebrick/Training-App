@@ -20,13 +20,15 @@ use Illuminate\Support\Facades\Route;
 // * ROUTE FOR PUBLIC VIEWING * //
 Route::get('/', [ControllerView::class, 'login'])->name('login');
 Route::get('/register', [ControllerView::class, 'register'])->name('register');
-Route::post('/register-save', [UserController::class, 'store'])->name('store');
+Route::post('/register-save', [UserController::class, 'storePublic'])->name('store');
 
 Route::post('/login-check', [UserController::class, 'check'])->name('user-check');
 
 Route::group(['middleware' => ['isLoggedIn']], function () {
     // * ROUTE FOR ADMIN * //
     Route::get('/a', [UserController::class, 'index'])->name('user-index');
+    Route::get('/a/users', [UserController::class, 'create'])->name('user-index-admin');
+    Route::post('a/save-user', [UserController::class, 'storeLoggedInAdmin'])->name('user-store');
     Route::get('/logout', [UserController::class, 'logout'])->name('user-logout');
 
     // * ROUTE FOR STUDENTS * //
@@ -47,5 +49,4 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
     Route::get('/a/edit-announcement/{id}', [AnnouncementController::class, 'edit'])->name('announcement-edit');
     Route::put('/a/update-announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement-update');
     Route::get('/a/delete-announcement/{id}', [AnnouncementController::class, 'destroy'])->name('announcement-destroy');
-
 });

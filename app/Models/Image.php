@@ -10,9 +10,4 @@ class Image extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
-    // public function announcement()
-    // {
-    //     return $this->belongsTo(Announcement::class, 'announcement_id');
-    // }
 }

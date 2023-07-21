@@ -98,7 +98,7 @@
                                 </div>
                                 <input type="text" id="editBirthday" name="birthday"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
-                                    placeholder="Select date" value="{{ $studentDetails->birthday }}">
+                                    placeholder="Select date" value="{{ $studentDetails->birthday }}" autocomplete="off">
                             </div>
                         </div>
 

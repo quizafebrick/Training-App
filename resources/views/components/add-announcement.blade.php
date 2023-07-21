@@ -6,7 +6,6 @@
         @include('components.admin-tabs')
     </div>
 
-
     <div class="flex items-center justify-center">
         <div class="mt-5 mb-5 bg-gray-200 rounded-lg shadow-xl">
             <form action="{{ route('announcement-save') }}" method="POST" enctype="multipart/form-data">
@@ -43,7 +42,8 @@
                                 </div>
                                 <input type="text" id="start_date" name="start_date"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
-                                    placeholder="Select date" onkeydown="return false" value="{{ old('start_date') }}">
+                                    placeholder="Select date" onkeydown="return false" value="{{ old('start_date') }}"
+                                    autocomplete="off">
                             </div>
                         </div>
 
@@ -60,7 +60,8 @@
                                 </div>
                                 <input type="text" id="end_date" name="end_date"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5"
-                                    placeholder="Select date" onkeydown="return false" value="{{ old('end_date') }}">
+                                    placeholder="Select date" onkeydown="return false" value="{{ old('end_date') }}"
+                                    autocomplete="off">
                             </div>
                         </div>
                     </div>

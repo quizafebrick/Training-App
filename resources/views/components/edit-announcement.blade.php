@@ -45,7 +45,7 @@
                                 <input type="text" id="start_date" name="start_date"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
                                     placeholder="Select date" onkeydown="return false"
-                                    value="{{ $announcementDetails->start_date }}">
+                                    value="{{ $announcementDetails->start_date }}" autocomplete="off">
                             </div>
                         </div>
 
@@ -63,7 +63,7 @@
                                 <input type="text" id="end_date" name="end_date"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5"
                                     placeholder="Select date" onkeydown="return false"
-                                    value="{{ $announcementDetails->end_date }}">
+                                    value="{{ $announcementDetails->end_date }}" autocomplete="off">
                             </div>
                         </div>
                     </div>

@@ -29,6 +29,11 @@
                 class="px-4 py-2 font-bold text-black {{ request()->routeIs('announcement-edit') ? 'bg-gray-900 rounded-t-lg text-white underline flex' : 'hidden' }}">
                 Announcement/Edit
             </a>
+
+            <a
+                class="px-4 py-2 font-bold text-black {{ request()->routeIs('user-index-admin') ? 'bg-gray-900 rounded-t-lg text-white underline flex' : 'hidden' }}">
+                User/Add
+            </a>
         </nav>
     </div>
 </div>

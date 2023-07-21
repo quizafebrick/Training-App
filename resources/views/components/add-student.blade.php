@@ -92,7 +92,8 @@
                                 </div>
                                 <input type="text" id="birthday" name="birthday"
                                     class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
-                                    placeholder="Select date" onkeydown="return false" value="{{ old('birthday') }}">
+                                    placeholder="Select date" onkeydown="return false" value="{{ old('birthday') }}"
+                                    autocomplete="off">
                             </div>
                         </div>
 

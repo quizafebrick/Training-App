@@ -7,11 +7,9 @@ use App\Http\Requests\UpdateAnnouncementRequest;
 use App\Models\Announcement;
 use App\Models\Image;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
 {
-
     public function index(User $user, Announcement $announcement)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
@@ -35,7 +33,7 @@ class AnnouncementController extends Controller
 
         if ($request->has('images')) {
             foreach ($request->file('images') as $images) {
-                $imageName = $requests['title'].'-image-'.time().rand(1, 1000).'.'.$images->extension();
+                $imageName = $requests['title'] . '-image-' . time() . rand(1, 1000) . '.' . $images->extension();
 
                 $images->move(public_path('images'), $imageName);
 
@@ -125,7 +123,6 @@ class AnnouncementController extends Controller
                 ]);
             }
         }
-
         return redirect()->route('announcement-list')->with("success", "Announcement Updated!");
     }
 

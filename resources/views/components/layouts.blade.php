@@ -34,6 +34,7 @@
     {{-- * LOGGED IN USER * --}}
     {{-- * DASHBOARD * --}}
     @yield('user-index')
+    @yield('user-index-admin')
 
     {{-- * STUDENTS * --}}
     @yield('add-student')
