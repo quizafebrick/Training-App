@@ -26,12 +26,19 @@ class UpdateStudentInformationRequest extends FormRequest
             'firstname' => 'required',
             'middlename' => 'required',
             'lastname' => 'required',
-            'contact_no' => ['required', 'regex:/^(?:\+63|09)\d{9,11}$/'],
+            'contact_no' => ['required', 'regex:/^(?:\+639|09)\d{9,11}$/'],
             'gender' => 'required',
             'birthday' => 'required',
             'age' => 'nullable',
-            'email_address' => [Rule::unique('students', 'email_address')->ignore($this->id)],
+            'email_address' => [Rule::unique('students', 'email_address')->ignore($this->id), 'required'],
             'address' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'contact_no.regex' => 'The contact no. must starts with +639 or 09',
         ];
     }
 }

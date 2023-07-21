@@ -3,9 +3,9 @@
 @section('user-index')
     <div>
         @include('components.navbar')
+        @include('components.admin-tabs')
     </div>
 
-    @include('components.admin-tabs')
 
     <div class="mt-5">
         <div class="text-4xl font-bold text-center underline">

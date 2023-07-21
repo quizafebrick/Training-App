@@ -10,10 +10,35 @@
     @apply py-2 mb-5 text-black bg-white rounded-lg outline outline-1; /* append existing styles */
 }
 
+#announcementTable_wrapper {
+    @apply p-10 text-black bg-white rounded-lg; /* append existing styles */
+}
+
+#announcementTable_filter label input {
+    @apply py-2 mb-5 text-black bg-white rounded-lg outline outline-1; /* append existing styles */
+}
+
 .dataTable thead tr th {
     @apply text-center;
 }
 
 .page-break {
     page-break-after: always;
+}
+
+figure {
+    width: 40%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+img {
+    width: 100%;
+}
+
+figcaption {
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 2vmin;
+    margin-top: 0.5vmin;
 }

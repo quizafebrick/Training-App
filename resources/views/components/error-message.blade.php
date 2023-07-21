@@ -1,10 +1,14 @@
 {{-- ! ERROR MESSAGE ! --}}
 @if ($errors->any())
-    <div class="bg-white">
-        <div class="px-6 py-3 mx-20 mt-5 text-white bg-red-400 rounded-md">
-            @foreach ($errors->all() as $error)
-                <div class="px-5 mx-5 text-xs font-bold md:text-lg">&bull; {{ $error }}</div>
-            @endforeach
+    <div class="mx-5 bg-white">
+        <div class="w-full px-6 py-3 mt-5 text-white bg-red-400 rounded-md">
+            <div class="grid grid-cols-1 px-5 mx-5 text-xs font-bold md:grid-cols-2 gap-x-1 md:text-md">
+                @foreach ($errors->all() as $error)
+                    <div class="text-left">
+                        &bull; {{ $error }}
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 @endif

@@ -6,9 +6,6 @@
         @include('components.admin-tabs')
     </div>
 
-    {{-- ! ERROR MESSAGE ! --}}
-    @include('components.error-message')
-
     <div class="flex items-center justify-center">
         <div class="mx-5 mt-5 mb-5 bg-gray-200 rounded-lg shadow-xl">
             <form action="{{ route('student-update', $studentDetails->id) }}" method="POST">
@@ -16,8 +13,14 @@
                 @csrf
                 <div class="inline-block mx-5 mt-5 mb-5 text-left transition-all transform bg-whiteshadow-xl w-fit align-center sm:align-center"
                     role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-                    <div class="pt-5 text-2xl font-bold text-center text-black underline bg-white rounded-t-lg">
-                        Update Student Information
+                    <div class="pt-5 text-2xl font-bold text-center text-black bg-white rounded-t-lg">
+                        <div class="underline">
+                            Update Student
+                        </div>
+                        <div class="w-full">
+                            {{-- ! ERROR MESSAGE ! --}}
+                            @include('components.error-message')
+                        </div>
                     </div>
 
 
@@ -71,7 +74,7 @@
                                 class="w-full text-sm text-black bg-white border border-gray-300 rounded-lg outline-1 outline"
                                 onkeypress="return (event.charCode > 47 &&
                             event.charCode < 58)"
-                                value="{{ $studentDetails->contact_no }}" minlength="11" maxlength="11">
+                                value="{{ $studentDetails->contact_no }}" minlength="11" maxlength="13">
                         </div>
 
                         <div class="">
@@ -87,8 +90,8 @@
                             </label>
                             <div class="relative max-w-sm">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                     </svg>
@@ -110,7 +113,7 @@
 
                     <div class="px-5 pt-5 pb-4 bg-white">
                         <div class="w-full">
-                            <label for="message" class="block text-sm font-medium text-black ">Address</label>
+                            <label for="message" class="block mb-2 text-sm font-medium text-black ">Address</label>
                             <textarea id="message" rows="4" name="address"
                                 class="block p-2.5 w-full text-sm text-black bg-white outline outline-1 rounded-lg resize-none"
                                 placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ $studentDetails->address }}</textarea>

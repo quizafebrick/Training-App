@@ -32,12 +32,21 @@
     @yield('registration')
 
     {{-- * LOGGED IN USER * --}}
+    {{-- * DASHBOARD * --}}
     @yield('user-index')
+
+    {{-- * STUDENTS * --}}
     @yield('add-student')
     @yield('edit-student')
     @yield('pdf-download-view')
     @yield('user-index-students')
 
+    {{-- * ANNOUNCEMENTS * --}}
+    @yield('user-index-announcements')
+    @yield('add-announcement')
+    @yield('edit-announcement')
+
+    {{-- * ALL SCRIPTS * --}}
     @include('components.scripts')
 </body>
 

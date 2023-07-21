@@ -1,39 +1,27 @@
-<table id="studentTable" class="text-black bg-white nowrap display" cellspacing="0" style="width:100%">
+<table id="announcementTable" class="text-black bg-white nowrap display" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <th>No.</th>
-            <th>Student No.</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Middlename</th>
-            <th>Contact No.</th>
-            <th>Gender</th>
-            <th>Email Address</th>
-            <th>Birthday</th>
-            <th>Age</th>
-            <th>Address</th>
-            <th>Actions</th>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Image/s</th>
+            <th>Action</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach ($students as $student)
+        @foreach ($announcements as $announcement)
             <tr class="text-center">
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $student->student_no }}</td>
-                <td>{{ $student->firstname }}</td>
-                <td>{{ $student->middlename }}</td>
-                <td>{{ $student->lastname }}</td>
-                <td>{{ $student->contact_no }}</td>
-                <td>{{ $student->gender }}</td>
-                <td>{{ $student->email_address }}</td>
-                <td>{{ $student->birthday }}</td>
-                <td>{{ $student->age }}</td>
-                <td>{{ $student->address }}</td>
+                <td>{{ $announcement->title }}</td>
+                <td>{{ $announcement->start_date }}</td>
+                <td>{{ $announcement->end_date }}</td>
+                <td>{{ $announcement->images->count() }}</td>
                 <td>
                     {{-- * EDIT BUTTON * --}}
                     <div class="flex items-center justify-center">
-                        <a href="{{ route('student-edit', $student->id) }}"
+                        <a href="{{ route('announcement-edit', $announcement->id) }}"
                             class="flex items-center justify-center px-3 py-2 mb-2 mr-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 hover:duration-300">
                             Edit &nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -47,8 +35,8 @@
 
                         {{-- * DELETE BUTTON * --}}
                         <a href="#"
-                            class="flex items-center justify-center px-3 py-2 mb-2 mr-2 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 hover:duration-300 delete-student-btn"
-                            data-id="{{ $student->id }}" data-name="{{ $student->firstname }}">
+                            class="flex items-center justify-center px-3 py-2 mb-2 mr-2 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 hover:duration-300 delete-announcement-btn"
+                            data-id="{{ $announcement->id }}" data-title="{{ $announcement->title }}">
                             Delete &nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-4 h-4">

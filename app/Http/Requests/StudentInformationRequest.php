@@ -25,7 +25,7 @@ class StudentInformationRequest extends FormRequest
             'firstname' => 'required|regex:/^[A-Za-z-]+$/',
             'middlename' => 'required|regex:/^[A-Za-z-]+$/',
             'lastname' => 'required|regex:/^[A-Za-z-]+$/',
-            'contact_no' => ['required','regex:/^(?:\+63|09)\d{9,11}$/', 'max:13', 'min:11'],
+            'contact_no' => ['required','regex:/^(?:\+639|09)\d{9,11}$/', 'max:13', 'min:11'],
             'gender' => 'required',
             'birthday' => 'required',
             'age' => 'required',
