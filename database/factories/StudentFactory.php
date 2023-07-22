@@ -36,7 +36,7 @@ class StudentFactory extends Factory
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'birthday' => $birthday,
             'email_address' => preg_replace('/@(example\.org|example\.net|example\.com)/', '@gmail.com', $this->faker->unique()->safeEmail()),
-            'password' => Hash::make($lastName),
+            'password' => Hash::make(Str::lower($lastName)),
             'address' => Str::upper($this->faker->address()),
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
         ];

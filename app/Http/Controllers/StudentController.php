@@ -2,19 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Student;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
 use App\Imports\StudentsImport;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StudentLoginRequest;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\StudentInformationRequest;
 use App\Http\Requests\UpdateStudentInformationRequest;
-use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+    public function check(StudentLoginRequest $request, Student $student)
+    {
+        $requests = $request->validated();
+
+        $students = $student->where('email_address', $requests['email_address'])->first();
+
+        if (!$students) return back()->with("error", "The user is not reflected to our database");
+
+        if (!Hash::check($requests['password'], $students->password)) {
+            return back()->with("error", "The password does not match");
+        }
+        $request->session()->put('studentEmail', $students->id);
+
+        return to_route('student-index');
+    }
+
+    public function logout()
+    {
+        if (session()->has('studentEmail')) {
+            session()->pull('studentEmail');
+
+            return to_route('student-login');
+        }
+    }
+
+    public function index(Student $student, Announcement $announcement, Image $image)
+    {
+        $studentEmail = ['studentEmail' => $student->where('id', session('studentEmail'))->first()];
+
+        // * GET CURRENT DATE IN THE FORMAT 'Y-M-D' * //
+        $currentDate = Carbon::today()->format('Y-m-d');
+
+        // * RETRIEVE ANNOUNCEMENTS THAT ARE CURRENTLY ACTIVE (BETWEEN START_DATE AND END_DATE) WITH THEIR IMAGES * //
+        $activeAnnouncements = $announcement
+            ->whereDate('start_date', '<=', $currentDate)
+            ->whereDate('end_date', '>=', $currentDate)
+            ->with('images')
+            ->get();
+
+        return view('student.index', $studentEmail, compact('activeAnnouncements'));
+    }
+
+    // * =========================================================================== * //
+
+    // * FUNCTIONS FOR ADMIN SIDE * //
     public function students(User $user, Student $student)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];

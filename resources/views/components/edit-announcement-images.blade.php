@@ -4,7 +4,7 @@
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
             @foreach ($images as $index => $image)
                 <div
-                    class="carousel-slide absolute top-0 left-{{ $index * 100 }}% w-full transition-transform duration-300">
+                    class="carousel-slide absolute top-0 left-{{ $index * 100 }}% w-full transition-transform duration-300 {{ $index === 0 ? 'visible' : 'hidden' }}">
                     <img src="{{ asset('images/' . $image->image) }}" alt="{{ $image->alt_text }}"
                         class="object-cover w-full h-full">
                 </div>

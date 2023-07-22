@@ -1,4 +1,4 @@
-<div class="fixed top-0 left-0 z-10 hidden w-full" id="import-modal">
+<div class="fixed top-0 left-0 z-50 hidden w-full" id="import-modal">
     <div
         class="flex items-center justify-center pt-4 pb-20 overflow-auto text-center md:px-4 min-height-100vh sm:block sm:p-0 ">
         <div class="fixed inset-0 transition-opacity">

@@ -6,7 +6,7 @@
                     @csrf
                     <div class="text-2xl font-bold text-center text-black bg-white rounded-t-lg">
                         <div class="underline">
-                            Create User
+                            New User
                         </div>
                         <div class="w-full">
                             {{-- ! ERROR MESSAGE ! --}}

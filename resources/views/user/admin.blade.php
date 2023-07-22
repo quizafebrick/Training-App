@@ -2,12 +2,16 @@
 
 @section('user-index-admin')
     <div>
-        @include('components.navbar')
-        @include('components.admin-tabs')
+        @include('components.admin-navbar')
+        {{-- @include('components.admin-tabs') --}}
     </div>
 
-    <div class="mt-5 text-4xl font-bold text-center text-black underline">
-        Admin User
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-400 border-dashed rounded-lg mt-14">
+            <div class="mt-5 text-4xl font-bold text-center text-black underline">
+                Create Admin
+            </div>
+            @include('components.add-user')
+        </div>
     </div>
-    @include('components.add-user')
 @endsection

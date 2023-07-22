@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\NoBack;
+use App\Http\Middleware\StudentLoggedInMiddleware;
 use App\Http\Middleware\UserLoggedInMiddleware;
 use App\Http\Middleware\UserLoggedOutMiddleware;
 use App\Http\Middleware\UserMiddleware;
@@ -68,7 +69,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'isLoggedIn' => UserLoggedInMiddleware::class,
+        'adminLoggedIn' => UserLoggedInMiddleware::class,
+        'studentLoggedIn' => StudentLoggedInMiddleware::class,
         'noBack' => NoBack::class,
     ];
 }

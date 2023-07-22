@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserLoggedInMiddleware
+class StudentLoggedInMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class UserLoggedInMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('userEmail') && ($request->path() != '/a'))
+        if (!session()->has('studentEmail') && ($request->path() != '/s'))
         {
             abort(404);
         }

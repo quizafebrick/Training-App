@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ControllerView extends Controller
 {
-    public function login()
+    public function adminLogin()
     {
         return view('index');
     }
@@ -15,5 +15,10 @@ class ControllerView extends Controller
     public function register()
     {
         return view('registration');
+    }
+
+    public function studentLogin()
+    {
+        return view('student.login');
     }
 }
