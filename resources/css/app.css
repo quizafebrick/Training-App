@@ -61,12 +61,6 @@
     height: 300px;
 }
 
-/* Center the Instagram-like box horizontally */
-/* .instagram-container {
-    display: flex;
-    justify-content: center;
-} */
-
 .carousel-indicator-container {
     position: absolute;
     bottom: 10px; /* Adjust this value to control the vertical position of the indicators */

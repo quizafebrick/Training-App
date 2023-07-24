@@ -27,7 +27,7 @@
             </div>
 
             <div class="flex items-center justify-center px-1 mx-5 md:justify-start md:mx-10">
-                <div class="w-full p-3 mb-10 bg-gray-300 rounded-lg shadow-lg outline outline-0">
+                <div class="w-full p-3 mb-10 bg-gray-300 rounded-lg shadow-lg ">
                     @include('components.announcement-table')
                 </div>
             </div>

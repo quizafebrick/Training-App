@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ControllerView;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,10 @@ Route::group(['middleware' => ['adminLoggedIn']], function () {
 
 
 Route::group(['middleware' => ['studentLoggedIn']], function () {
-    // * ROUTE FOR ADMIN CONTROLLER * //
+    // * ROUTE FOR STUDENT CONTROLLER * //
     Route::get('/s', [StudentController::class, 'index'])->name('student-index');
     Route::get('/s/logout', [StudentController::class, 'logout'])->name('student-logout');
+
+    // * ROUTE FOR STUDENT PROFILE CONTROLLER * //
+    Route::get('/s/profile/{id}', [StudentProfileController::class, 'index'])->name('student-profile-index');
 });

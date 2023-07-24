@@ -29,12 +29,15 @@
 
     @include('student-components.messages')
 
+    {{-- * PUBLIC VIEWING * --}}
     @yield('student-login')
 
     {{-- * STUDENT INDEX * --}}
     @yield('student-index')
+    @yield('student-profile')
 
-    <script src="{{ asset('js/student-carousel-announcement.js') }}"></script>
+    {{-- * SCRIPTS * --}}
+    @include('student-components.student-scripts')
 
 </body>
 

@@ -1,22 +1,19 @@
 @foreach ($activeAnnouncements as $announcement)
-    <div class="p-5 mx-5 mt-5 mb-10 border-2 border-black md:p-0 md:mx-80">
+    <div class="p-2 mx-0 mt-5 mb-0 bg-gray-900 rounded-lg md:mb-0 md:p-0">
         <div class="flex items-center justify-center instagram-container">
-            <div class="py-2 my-5 mb-10 bg-gray-300 mx:5 instagram-box">
+            <div class="py-2 my-5 mb-10 border border-gray-600 shadow-2xl mx:5 instagram-box">
                 <div class="flex items-center justify-center mx-5 md:mx-3">
-                    <div class="w-full p-3 rounded-lg outline outline-0">
-                        <h3>{{ $announcement->title }}</h3>
-                        <p>{{ $announcement->content }}</p>
+                    <div class="w-full p-3 text-white rounded-lg outline outline-0">
 
                         {{-- * DISPLAY THE IMAGES FOR THIS ANNOUNCEMENT * --}}
-                        <div id="carousel-{{ $announcement->id }}" class="relative bg-white rounded-lg shadow-lg">
+                        <div id="carousel-{{ $announcement->id }}" class="relative bg-gray-900 rounded-lg">
                             <div class="mx-5">
                                 <div class="relative flex items-center h-80 carousel-mask">
                                     @forelse ($announcement->images as $index => $image)
                                         <div
                                             class="absolute w-full h-full transition-transform duration-300 carousel-slide {{ $index !== 0 ? 'opacity-0' : 'opacity-100' }}">
                                             <img src="{{ asset('images/' . $image->image) }}"
-                                                alt="{{ $image->alt_text }}"
-                                                class="object-contain w-full h-full rounded-lg">
+                                                alt="{{ $image->alt_text }}" class="object-contain w-full h-full">
                                         </div>
                                     @empty
                                         <div
@@ -44,7 +41,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="w-8 h-8 ml-2 text-white md:w-12 md:h-12">
                                     <path fill-rule="evenodd"
-                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-4.28 9.22a.75.75 0 000 1.06l3 3a.75.75 0 10-1.06-1.06l-1.72-1.72h5.69a.75.75 0 000-1.5h-5.69l1.72-1.72a.75.75 0 00-1.06-1.06l-3 3z"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-4.28 9.22a.75.75 0 000 1.06l3 3a.75.75 0 101.06-1.06l-1.72-1.72h5.69a.75.75 0 000-1.5h-5.69l1.72-1.72a.75.75 0 00-1.06-1.06l-3 3z"
                                         clip-rule="evenodd" />
                                 </svg>
                             </button>
@@ -59,9 +56,49 @@
                                 </svg>
                             </button>
                         </div>
+
+                        <hr class="mt-5 border-gray-600 border-1">
+
+                        {{-- * ANNOUNCEMENT TITLE, CONTENT & TIME(READABLE FOR HUMAN) * --}}
+                        <div>
+                            <div class="mt-5 text-xs text-gray-500 text-end">
+                                <div class="flex items-center justify-end">
+                                    {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-4 h-4 ml-1">
+                                        <path
+                                            d="M15.75 8.25a.75.75 0 01.75.75c0 1.12-.492 2.126-1.27 2.812a.75.75 0 11-.992-1.124A2.243 2.243 0 0015 9a.75.75 0 01.75-.75z" />
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM4.575 15.6a8.25 8.25 0 009.348 4.425 1.966 1.966 0 00-1.84-1.275.983.983 0 01-.97-.822l-.073-.437c-.094-.565.25-1.11.8-1.267l.99-.282c.427-.123.783-.418.982-.816l.036-.073a1.453 1.453 0 012.328-.377L16.5 15h.628a2.25 2.25 0 011.983 1.186 8.25 8.25 0 00-6.345-12.4c.044.262.18.503.389.676l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.575 15.6z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 class="mt-1">{{ $announcement->title }}</h3>
+                            <div class="mt-5 text-justify">
+                                <div class="announcement-summary">
+                                    {{ \App\Helper\AnnouncementHelper::getFirstThreeSentences($announcement->content) }}
+                                </div>
+                                <div class="hidden announcement-content">
+                                    {{ $announcement->content }}
+                                </div>
+                                <a href="#" class="text-blue-500 see-more" onclick="toggleContent(event, this)">
+                                    See more
+                                </a>
+                                <a href="#" class="hidden text-blue-500 see-less"
+                                    onclick="toggleContent(event, this)">
+                                    See less
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- * FIND THE LAST ANNOUNCEMENT AND SO THE VERTICAL LINE WILL BE REMOVED * --}}
+    @if (!$loop->last)
+        <hr class="border-gray-600 border-1">
+    @endif
 @endforeach

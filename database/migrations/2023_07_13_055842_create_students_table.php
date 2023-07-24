@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('birthday');
             $table->string('age')->nullable();
             $table->string('address');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

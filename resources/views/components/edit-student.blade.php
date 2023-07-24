@@ -109,16 +109,17 @@
                                         <input type="text" id="editBirthday" name="birthday"
                                             class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
                                             placeholder="Select date" value="{{ $studentDetails->birthday }}"
-                                            autocomplete="off">
+                                            autocomplete="off" onkeydown="return false">
                                     </div>
                                 </div>
 
                                 <div class="">
                                     <label for="default-input" class="block text-sm font-medium text-black">Age</label>
                                     <input type="text" id="age2" aria-label="disabled input"
-                                        class="mb-6 outline outline-1 bg-gray-200 text-black text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                                        class="pt-5 text-2xl font-bold text-center text-black bg-white rounded-t-lg"
                                         readonly placeholder="{{ $studentDetails->age }}">
-                                    <input type="hidden" id="age3" name="age" value="{{ $studentDetails->age }}">
+                                    <input type="hidden" id="age3" name="age"
+                                        value="{{ $studentDetails->age }}">
                                 </div>
                             </div>
 

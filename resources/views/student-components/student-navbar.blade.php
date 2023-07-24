@@ -54,9 +54,6 @@
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-black rounded shadow md:divide-white md:bg-gray-900"
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
-                            {{-- <p class="text-sm text-white" role="none">
-                                {{ $userEmail['firstname'] }} {{ $userEmail['lastname'] }}
-                            </p> --}}
                             <p class="text-sm font-medium text-black truncate md:text-white" role="none">
                                 Email: {{ $studentEmail['email_address'] }}
                             </p>
@@ -91,6 +88,19 @@
                             d="M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z" />
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Announcements</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('student-profile-index', $studentEmail['id']) }}"
+                    class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 hover:duration-300 hover:text-white group">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="w-5 h-5 text-white">
+                        <path fill-rule="evenodd"
+                            d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
                 </a>
             </li>
         </ul>
