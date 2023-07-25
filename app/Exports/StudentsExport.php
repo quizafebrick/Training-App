@@ -16,7 +16,7 @@ class StudentsExport implements FromCollection, WithHeadings
         return Student::orderBy('id', 'ASC')
             ->get()
             ->map(function ($students) {
-                return $students->makeHidden(['id', 'password', 'created_at', 'updated_at']);
+                return $students->makeHidden(['id', 'password', 'image', 'created_at', 'updated_at']);
             });
     }
 

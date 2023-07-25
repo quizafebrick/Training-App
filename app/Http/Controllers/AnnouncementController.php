@@ -78,7 +78,7 @@ class AnnouncementController extends Controller
                     $imageExtension = pathinfo($existingImagePath, PATHINFO_EXTENSION);
                     $newImageName = $newTitle . '-image-' . time() . rand(1, 1000) . '.' . $imageExtension;
 
-                    // * RENAME THE IMAGE FILE * //
+                    // ! RENAME THE IMAGE FILE ! //
                     rename($existingImagePath, public_path('images/' . $newImageName));
 
                     // * PREPARE THE IMAGE DATA TO UPDATE THE IMAGE RECORD * //
@@ -102,14 +102,14 @@ class AnnouncementController extends Controller
 
         // * HANDLE IMAGE UPDATES AS BEFORE (ADD, DELETE, OR RETAIN IMAGES) * //
         if ($request->hasFile('images')) {
-            // * DELETE EXISTING IMAGES ASSOCIATED WITH THE ANNOUNCEMENT FROM THE PUBLIC FOLDER * //
+            // ! DELETE EXISTING IMAGES ASSOCIATED WITH THE ANNOUNCEMENT FROM THE PUBLIC FOLDER ! //
             foreach ($update_announcement->images as $existingImage) {
                 if (file_exists(public_path('images/' . $existingImage->image))) {
                     unlink(public_path('images/' . $existingImage->image));
                 }
             }
 
-            // * DELETE EXISTING IMAGES ASSOCIATED WITH THE ANNOUNCEMENT FROM THE DATABASE * //
+            // ! DELETE EXISTING IMAGES ASSOCIATED WITH THE ANNOUNCEMENT FROM THE DATABASE ! //
             $update_announcement->images()->delete();
 
             foreach ($request->file('images') as $imageFile) {
@@ -130,14 +130,14 @@ class AnnouncementController extends Controller
     {
         $delete_announcement = $announcement->findOrFail($id);
 
-        // * DELETE THE ASSOCIATED IMAGES FROM THE PUBLIC FOLDER * //
-        foreach ($delete_announcement->images as $image) {
-            if (file_exists(public_path('images/' . $image->image))) {
-                unlink(public_path('images/' . $image->image));
+        // ! DELETE THE ASSOCIATED IMAGES FROM THE PUBLIC FOLDER ! //
+        foreach ($delete_announcement->images as $images) {
+            if (file_exists(public_path('images/' . $images->image))) {
+                unlink(public_path('images/' . $images->image));
             }
 
-            // * DELETE THE ASSOCIATED IMAGES FROM ANNOUNCEMENT TABLE TO IMAGE TABLE * //
-            $image->delete();
+            // ! DELETE THE ASSOCIATED IMAGES FROM ANNOUNCEMENT TABLE TO IMAGE TABLE ! //
+            $images->delete();
         }
 
         $delete_announcement->delete();

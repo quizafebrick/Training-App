@@ -63,5 +63,6 @@ Route::group(['middleware' => ['studentLoggedIn']], function () {
     Route::get('/s/logout', [StudentController::class, 'logout'])->name('student-logout');
 
     // * ROUTE FOR STUDENT PROFILE CONTROLLER * //
-    Route::get('/s/profile/{id}', [StudentProfileController::class, 'index'])->name('student-profile-index');
+    Route::get('/s/profile/{id}', [StudentProfileController::class, 'edit'])->name('student-profile-index');
+    Route::put('/s/profile/update-profile/{id}', [StudentProfileController::class, 'update'])->name('student-update-profile');
 });

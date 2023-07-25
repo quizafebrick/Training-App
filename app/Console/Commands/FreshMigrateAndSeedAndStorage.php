@@ -45,7 +45,7 @@ class FreshMigrateAndSeedAndStorage extends Command
 
         // * CHECK IF THE IMAGES DIRECTORY EXISTS IN THE PUBLIC PATH * //
         if (File::exists($publicImagePath)) {
-            // * DELETE ALL FILES IN THE IMAGES DIRECTORY * //
+            // ! DELETE ALL FILES IN THE IMAGES DIRECTORY ! //
             File::cleanDirectory($publicImagePath);
         }
     }

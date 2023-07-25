@@ -115,11 +115,10 @@
 
                                 <div class="">
                                     <label for="default-input" class="block text-sm font-medium text-black">Age</label>
-                                    <input type="text" id="age2" aria-label="disabled input"
-                                        class="pt-5 text-2xl font-bold text-center text-black bg-white rounded-t-lg"
-                                        readonly placeholder="{{ $studentDetails->age }}">
-                                    <input type="hidden" id="age3" name="age"
-                                        value="{{ $studentDetails->age }}">
+                                    <input type="text"
+                                        class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                                        id="age2" placeholder="{{ $studentDetails->age }}" disabled>
+                                    <input type="hidden" id="age3" name="age" value="{{ $studentDetails->age }}">
                                 </div>
                             </div>
 
@@ -132,6 +131,31 @@
                                         placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ $studentDetails->address }}</textarea>
                                 </div>
                             </div>
+
+                            <div class="pb-3 bg-white">
+                                <div class="flex justify-center mb-6">
+                                    <div>
+                                        <div class="flex items-center justify-center">
+                                            <label class="block mb-1 text-sm font-medium text-gray-900" for="file_input">
+                                                Your Image Preview
+                                            </label>
+                                        </div>
+                                        {{-- *IMAGE IS SELECTED WHEN IT HAS EXISISTING BUT IT GOES BACK TO DEFAULT IMAGE WHEN NO IMAGE IS EXISISTING * --}}
+                                        <img class="object-cover border-2 border-black w-52 h-52" id="image_output"
+                                            src="{{ $studentDetails->image ? asset('images/' . $studentDetails->image) : asset('random_images/default-image.jpg') }}"
+                                            data-default-image="{{ asset('random_images/default-image.jpg') }}">
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-center mb-6">
+                                    <input
+                                        class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer w-80 bg-gray-50"
+                                        id="image_input" name="image" accept=".jpg, .jpeg" type="file"
+                                        onchange="imagePreview(event)">
+
+                                </div>
+                            </div>
+
                             <div class="flex items-center justify-center px-4 py-3 text-right bg-gray-200 rounded-b-lg">
                                 <button type="submit"
                                     class="w-full px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:bg-blue-700 hover:duration-300">

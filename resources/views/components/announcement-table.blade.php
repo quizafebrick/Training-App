@@ -5,7 +5,7 @@
             <th>Title</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Image/s</th>
+            <th>No. of Image/s</th>
             <th>Action</th>
         </tr>
     </thead>

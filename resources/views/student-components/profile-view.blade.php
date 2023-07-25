@@ -1,5 +1,7 @@
 <div class="mt-10">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('student-update-profile', $studentDetails->id) }}" enctype="multipart/form-data" method="POST">
+        @method('PUT')
+        @csrf
         <div class="p-3 bg-blue-800 rounded-lg">
             <div class="my-3 text-3xl font-semibold text-center text-white">
                 GENERAL INFORMATION
@@ -7,8 +9,8 @@
             <div class="mt-5 bg-white">
                 <div class="mx-5">
                     @csrf
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="p-5">
+                    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                        <div class="p-2 mt-3 md:mt-0 md:p-5">
                             <div class="mb-6">
                                 <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">
                                     Student No.
@@ -22,7 +24,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Firstname
                                 </label>
-                                <input type="text" id="default-input"
+                                <input type="text" id="default-input" name="firstname"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     value="{{ $studentDetails->firstname }}"
                                     onkeypress="return (event.charCode > 64 &&
@@ -34,7 +36,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Middlename
                                 </label>
-                                <input type="text" id="default-input"
+                                <input type="text" id="default-input" name="middlename"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"value="{{ $studentDetails->middlename }}"
                                     onkeypress="return (event.charCode > 64 &&
                                     event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 44 && event.charCode < 46)"
@@ -45,7 +47,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Lastname
                                 </label>
-                                <input type="text" id="default-input"
+                                <input type="text" id="default-input" name="lastname"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     value="{{ $studentDetails->lastname }}"
                                     onkeypress="return (event.charCode > 64 &&
@@ -54,18 +56,21 @@
                             </div>
                         </div>
                         <div class="p-5">
-                            <div class="flex justify-end mb-6">
-                                <div class="">
-                                    <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
-                                        for="file_input">
-                                        Your Image
-                                    </label>
-                                    <img class="object-cover border-black border-1 w-52 h-52" id="image_output">
+                            <div class="flex justify-center mb-6 md:justify-end">
+                                <div>
+                                    <div class="flex items-center justify-center">
+                                        <label class="block mb-1 text-sm font-medium text-gray-900" for="file_input">
+                                            Your Image Preview
+                                        </label>
+                                    </div>
+                                    {{-- * IMAGE IS SELECTED WHEN IT HAS EXISISTING BUT IT GOES BACK TO DEFAULT IMAGE WHEN NO IMAGE IS EXISISTING * --}}
+                                    <img class="object-cover border-2 border-black w-52 h-52" id="image_output"
+                                        src="{{ $studentDetails->image ? asset('images/' . $studentDetails->image) : asset('random_images/default-image.jpg') }}"
+                                        data-default-image="{{ asset('random_images/default-image.jpg') }}">
                                 </div>
                             </div>
 
                             <div class="flex justify-end mb-6">
-
                                 <input
                                     class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer w-80 bg-gray-50"
                                     id="image_input" name="image" accept=".jpg, .jpeg" type="file"
@@ -85,24 +90,26 @@
             <div class="mt-5 bg-white">
                 <div class="mx-5">
                     @csrf
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="p-5">
+                    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                        <div class="p-2 mt-3 md:mt-0 md:p-5">
                             <div class="mb-6">
                                 <label for="default-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Contact No.
                                 </label>
-                                <input type="text" id="default-input"
+                                <input type="text" id="default-input" name="contact_no"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     value="{{ $studentDetails->contact_no }}"
                                     onkeypress="return (event.charCode > 47 &&
-                            event.charCode < 58)"
-                                    value="{{ $studentDetails->contact_no }}" minlength="11" maxlength="13">
+                            event.charCode < 58) || (event.charCode > 42 &&
+                            event.charCode < 44)"
+                                    value="{{ $studentDetails->contact_no }}">
                             </div>
                             <div class="mb-6">
                                 <label for="gender" class="block mb-2 text-sm font-medium text-black">Gender </label>
                                 <select name="gender"
-                                    class="w-full py-2 text-sm text-black rounded-lg outline outline-1">
+                                    class="w-full py-2 text-sm text-gray-900 border border-gray-300 rounded-lg"
+                                    name="gender">
                                     <option disabled>-- Currently Selected --</option>
                                     <option selected value="{{ $studentDetails->gender }}" class="text-gray-500">
                                         -- {{ $studentDetails->gender }} --
@@ -112,26 +119,26 @@
                                     <option value="Female" class="hover:bg-blue-600 hover:duration-300">Female</option>
                                 </select>
                             </div>
-                            <div class="mb-6">
+                            <div class="">
                                 <label for="default-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Email Address
                                 </label>
-                                <input type="email" id="default-input"
+                                <input type="email" id="default-input" name="email_address"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     value="{{ $studentDetails->email_address }}">
                             </div>
                         </div>
 
-                        <div class="p-5">
-
+                        <div class="p-2 md:p-5">
                             <div class="mb-6">
                                 <label for="default-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Birthday
                                 </label>
                                 <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                    <div
+                                        class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-500" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                             viewBox="0 0 20 20">
@@ -140,7 +147,7 @@
                                         </svg>
                                     </div>
                                     <input type="text" id="editBirthday" name="birthday"
-                                        class="outline-1 outline text-black text-sm rounded-lg block w-full pl-10 p-2.5 "
+                                        class="border border-gray-300  text-gray-900  text-sm rounded-lg block w-full pl-10 p-2.5 "
                                         placeholder="Select date" value="{{ $studentDetails->birthday }}"
                                         autocomplete="off" onkeydown="return false">
                                 </div>
@@ -158,7 +165,7 @@
                                     <label for="message"
                                         class="block mb-2 text-sm font-medium text-black ">Address</label>
                                     <textarea id="message" rows="4" name="address"
-                                        class="block p-2.5 w-full text-sm text-black bg-white outline outline-1 rounded-lg resize-none"
+                                        class="block p-2.5 w-full text-sm text-gray-900 bg-white border border-gray-300  rounded-lg resize-none"
                                         placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ $studentDetails->address }}</textarea>
                                 </div>
                             </div>

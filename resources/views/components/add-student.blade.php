@@ -76,7 +76,7 @@
                                         onkeypress="return (event.charCode > 47 &&
                                 event.charCode < 58) || (event.charCode > 42 &&
                                 event.charCode < 44)"
-                                        value="{{ old('contact_no') }}" minlength="11" maxlength="13">
+                                        value="{{ old('contact_no') }}">
                                 </div>
 
                                 <div>

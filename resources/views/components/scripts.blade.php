@@ -9,3 +9,4 @@
 <script src="{{ asset('js/import-modal.js') }}"></script>
 <script src="{{ asset('js/image-preview.js') }}"></script>
 <script src="{{ asset('js/announcement-carousel-slider.js') }}"></script>
+<script src="{{ asset('js/student-image-preview.js') }}"></script>
