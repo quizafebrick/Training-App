@@ -147,9 +147,9 @@
                             </div>
                             <div class="mb-6">
                                 <label for="default-input" class="block text-sm font-medium text-black">Age</label>
-                                <input type="text" id="age2" aria-label="disabled input"
-                                    class="mb-6 outline outline-1 bg-gray-200 text-black text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
-                                    readonly placeholder="{{ $studentDetails->age }}">
+                                <input type="text"
+                                    class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                                    id="age2" placeholder="{{ $studentDetails->age }}" disabled>
                                 <input type="hidden" id="age3" name="age"
                                     value="{{ $studentDetails->age }}">
                             </div>

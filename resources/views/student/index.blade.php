@@ -7,11 +7,11 @@
 
     <div class="p-4 sm:ml-64">
         <div class="mt-14">
-            <div class="p-5 bg-gray-900 rounded-lg">
-                <div class="mt-2 text-4xl font-bold text-center text-white underline">
+            <div class="p-4 border-2 border-dashed rounded-lg md:p-5 bg-slate-100 border-slate-200">
+                <div class="mt-2 text-4xl font-bold text-center text-black underline">
                     Announcements
                 </div>
-                <div class="mt-5">
+                <div class="mt-1">
                     @if ($activeAnnouncements->isEmpty())
                         <div class="mx-10 mb-10">
                             <div class="w-full text-center text-white shadow-lg ">

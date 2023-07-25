@@ -30,7 +30,7 @@
 .instagram-box {
     width: 500px; /* Adjust the width as needed */
     border-radius: 20px; /* Adjust the border radius as needed */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); */
     overflow: hidden; /* Clip the corners to create rounded edges */
 }
 

@@ -1,14 +1,27 @@
+@php
+    $announcementCount = 0;
+    $totalAnnouncements = count($activeAnnouncements);
+@endphp
+
 @foreach ($activeAnnouncements as $announcement)
-    <div class="p-2 mx-0 mt-5 mb-0 bg-gray-900 rounded-lg md:mb-0 md:p-0">
+    {{-- * FOR GRID COLUMN START DIV * --}}
+    @if ($announcementCount % 2 === 0)
+        {{-- * IT CENTERED THE LAST ANNOUNCEMENT(IN ROW) IF IT'S ALL ALONE * --}}
+        {{-- * ELSE; IT CONTINUES THE GRID-COLS-2 * --}}
+        <div
+            class="{{ $loop->last && $totalAnnouncements % 2 !== 0 ? 'col-span-2 md:col-start-1 md:col-end-3' : 'grid md:grid-cols-2 grid-cols-1' }}">
+    @endif
+
+    <div class="p-1 mx-0 mt-0 mb-0 rounded-lg md:mt-5 md:mb-0 md:p-0">
         <div class="flex items-center justify-center instagram-container">
-            <div class="py-2 my-5 mb-10 border border-gray-600 shadow-2xl mx:5 instagram-box">
+            <div class="py-2 my-5 mb-10 border border-slate-400 bg-slate-100 mx:5 instagram-box">
                 <div class="flex items-center justify-center mx-5 md:mx-3">
                     <div class="w-full p-3 text-white rounded-lg outline outline-0">
 
                         {{-- * DISPLAY THE IMAGES FOR THIS ANNOUNCEMENT * --}}
-                        <div id="carousel-{{ $announcement->id }}" class="relative bg-gray-900 rounded-lg">
+                        <div id="carousel-{{ $announcement->id }}" class="relative rounded-lg bg-slate-100">
                             <div class="mx-5">
-                                <div class="relative flex items-center h-80 carousel-mask">
+                                <div class="relative flex h-80 carousel-mask">
                                     @forelse ($announcement->images as $index => $image)
                                         <div
                                             class="absolute w-full h-full transition-transform duration-300 carousel-slide {{ $index !== 0 ? 'opacity-0' : 'opacity-100' }}">
@@ -39,7 +52,7 @@
                             <button type="button" onclick="prevSlide('carousel-{{ $announcement->id }}')"
                                 class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-8 h-8 ml-2 text-white md:w-12 md:h-12">
+                                    class="w-8 h-8 ml-2 text-black md:w-12 md:h-12">
                                     <path fill-rule="evenodd"
                                         d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-4.28 9.22a.75.75 0 000 1.06l3 3a.75.75 0 101.06-1.06l-1.72-1.72h5.69a.75.75 0 000-1.5h-5.69l1.72-1.72a.75.75 0 00-1.06-1.06l-3 3z"
                                         clip-rule="evenodd" />
@@ -49,7 +62,7 @@
                             <button type="button" onclick="nextSlide('carousel-{{ $announcement->id }}')"
                                 class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none nextBtn">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-8 h-8 mr-2 text-white md:w-12 md:h-12">
+                                    class="w-8 h-8 mr-2 text-black md:w-12 md:h-12">
                                     <path fill-rule="evenodd"
                                         d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
                                         clip-rule="evenodd" />
@@ -57,10 +70,10 @@
                             </button>
                         </div>
 
-                        <hr class="mt-5 border-gray-600 border-1">
+                        <hr class="mt-5 border-slate-400 border-1">
 
                         {{-- * ANNOUNCEMENT TITLE, CONTENT & TIME(READABLE FOR HUMAN) * --}}
-                        <div>
+                        <div class="text-black">
                             <div class="mt-5 text-xs text-gray-500 text-end">
                                 <div class="flex items-center justify-end">
                                     {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
@@ -77,18 +90,29 @@
                             <h3 class="mt-1">{{ $announcement->title }}</h3>
                             <div class="mt-5 text-justify">
                                 <div class="announcement-summary">
-                                    {{ \App\Helper\AnnouncementHelper::getFirstThreeSentences($announcement->content) }}
+                                    @php
+                                        $firstThreeSentences = \App\Helper\AnnouncementHelper::getFirstThreeSentences($announcement->content);
+                                        $remainingContent = substr($announcement->content, strlen($firstThreeSentences));
+                                        $hasMoreThanThreeSentences = count(explode('.', $remainingContent)) > 3;
+                                    @endphp
+
+                                    @if ($hasMoreThanThreeSentences)
+                                        {!! $firstThreeSentences !!}
+                                        <div class="hidden whitespace-pre-line announcement-content">
+                                            {!! $remainingContent !!}
+                                        </div>
+                                        <a href="#" class="mt-1 text-blue-500 see-more"
+                                            onclick="toggleContent(event, this)">
+                                            See more
+                                        </a>
+                                        <a href="#" class="hidden mt-1 text-blue-500 see-less"
+                                            onclick="toggleContent(event, this)">
+                                            See less...
+                                        </a>
+                                    @else
+                                        {!! $announcement->content !!}
+                                    @endif
                                 </div>
-                                <div class="hidden announcement-content">
-                                    {{ $announcement->content }}
-                                </div>
-                                <a href="#" class="text-blue-500 see-more" onclick="toggleContent(event, this)">
-                                    See more
-                                </a>
-                                <a href="#" class="hidden text-blue-500 see-less"
-                                    onclick="toggleContent(event, this)">
-                                    See less
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -97,8 +121,21 @@
         </div>
     </div>
 
-    {{-- * FIND THE LAST ANNOUNCEMENT AND SO THE VERTICAL LINE WILL BE REMOVED * --}}
+    {{-- * (SMALLER SCREEN) FIND THE LAST ANNOUNCEMENT AND SO THE VERTICAL LINE WILL BE REMOVED * --}}
     @if (!$loop->last)
-        <hr class="border-gray-600 border-1">
+        <hr class="flex border-slate-400 border-1 md:hidden">
     @endif
+
+    {{-- * (MEDIUM-LARGER SCREEN) FOR GRID COLUMN END DIV* --}}
+    @if ($announcementCount % 2 === 1 || $loop->last)
+        </div>
+        {{-- * FIND THE LAST ANNOUNCEMENT AND SO THE VERTICAL LINE WILL BE REMOVED * --}}
+        @if (!$loop->last)
+            <hr class="hidden border-slate-400 border-1 md:flex">
+        @endif
+    @endif
+
+    @php
+        $announcementCount++;
+    @endphp
 @endforeach
