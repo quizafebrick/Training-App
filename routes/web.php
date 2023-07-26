@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ControllerView;
+use App\Http\Controllers\StudentAccountSettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\UserController;
@@ -65,4 +66,11 @@ Route::group(['middleware' => ['studentLoggedIn']], function () {
     // * ROUTE FOR STUDENT PROFILE CONTROLLER * //
     Route::get('/s/profile/{id}', [StudentProfileController::class, 'edit'])->name('student-profile-index');
     Route::put('/s/profile/update-profile/{id}', [StudentProfileController::class, 'update'])->name('student-update-profile');
+
+    // * ROUTE FOR STUDENT ACCOUNT SETTINGS CONTROLLER * //
+    Route::get('/s/account-settings/{id}', [StudentAccountSettingController::class, 'edit'])->name('student-account-settings');
+    Route::post('/verify-old-password/', [StudentAccountSettingController::class, 'check'])->name('student-verify-password');
+    Route::post('/update-student-account/{id}', [StudentAccountSettingController::class, 'changePassword'])->name('student-change-password');
+
 });
+

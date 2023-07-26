@@ -11,7 +11,7 @@
                 <div class="mt-2 text-4xl font-bold text-center text-black underline">
                     Announcements
                 </div>
-                <div class="mt-1">
+                <div class="mt-10">
                     @if ($activeAnnouncements->isEmpty())
                         <div class="mx-10 mb-10">
                             <div class="w-full text-center text-white shadow-lg ">
