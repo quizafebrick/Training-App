@@ -12,8 +12,12 @@ class AnnouncementController extends Controller
 {
     public function index(User $user, Announcement $announcement)
     {
-        $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
-        $announcements = $announcement->orderBy('id', 'ASC')->get();
+        // * ASSUMING 'USEREMAIL' IS THE COLUMN NAME THAT STORES THE USER_ID IN THE USER MODEL * //
+        $userId = session('userEmail');
+        $userEmail = ['userEmail' => $user->where('id', $userId)->first()];
+
+        // * ASSUMING 'USER_ID' IS THE COLUMN NAME THAT RELATES TO THE USER IN THE ANNOUNCEMENT MODEL * //
+        $announcements = $announcement->where('user_id', $userId)->orderBy('id', 'ASC')->get();
 
         return view('user.announcement', $userEmail, compact('announcements'));
     }

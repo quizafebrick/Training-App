@@ -1,91 +1,65 @@
-// * FUNCTION TO SHOW THE CHANGE PASSWORD SECTION * //
-function showChangePasswordSection() {
-    document.getElementById('change-password-section').style.display = 'block';
-    document.getElementById('change-password-button').style.display = 'block';
-}
+$(document).ready(function() {
+    $('#change-password-button').on('click', function(e) {
+        e.preventDefault();
 
-// * FUNCTION TO HIDE THE CHANGE PASSWORD SECTION * //
-function hideChangePasswordSection() {
-    document.getElementById('change-password-section').style.display = 'none';
-    document.getElementById('change-password-button').style.display = 'none';
-}
+        // * GET THE STUDENT ID FROM THE BUTTON'S DATA-ID ATTRIBUTE * //
+        var studentID = $(this).data('id');
 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        // * ADD CSRF TOKEN * //
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-    // * AJAX FUNCTION TO VERIFY THE OLD PASSWORD * //
-    function verifyOldPassword() {
-        const oldPassword = document.getElementById('old-password-input').value;
-        const emailAddress = document.querySelector('input[name="email_address"]').value;
+        // * GET THE NEW PASSWORD INPUT VALUES * //
+        var newPassword = $('#new-password-input').val();
+        var confirmPassword = $('#confirm-password-input').val();
 
-        // * CHECK IF THE OLD PASSWORD IS EMPTY * //
-        if (oldPassword.trim() === '') {
-            // * SHOW A SWEETALERT FOR THE ERROR * //
+        // * ADD VALIDATION TO ENSURE BOTH PASSWORDS MATCH AND ARE NOT EMPTY * //
+        if (newPassword !== confirmPassword) {
+            // * SHOW SWEETALERT ERROR NOTIFICATION * //
             Swal.fire({
+                title: 'Error',
+                text: 'Passwords do not match.',
                 icon: 'error',
-                title: 'Password Verification Failed',
-                text: 'You must enter your current password to be able to make a new one.',
             });
-            return; // * EXIT THE FUNCTION TO PREVENT THE AJAX REQUEST * //
+            return;
         }
 
-        // * MAKE AN AJAX POST REQUEST TO VERIFY THE OLD PASSWORD * //
-        fetch("/verify-old-password", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken, // * USE THE CSRFTOKEN VARIABLE HERE * //
+        if (newPassword.trim() === '') {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please enter a new password.',
+                icon: 'error',
+            });
+            return;
+        }
+
+        // * MAKE THE AJAX REQUEST * //
+        $.ajax({
+            url: '/update-student-account/' + studentID,
+            type: 'POST',
+            data: {
+                _token: csrfToken,
+                password: newPassword,
+                confirm_password: confirmPassword,
             },
-            body: JSON.stringify({ old_password: oldPassword, email_address: emailAddress }),
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            // * CHECK THE RESPONSE FROM THE SERVER * //
-            if (data.show_change_password) {
-                // * PASSWORD VERIFIED, SHOW THE CHANGE PASSWORD SECTION * //
-                showChangePasswordSection();
-
-                const oldPasswordInput = document.getElementById('old-password-input');
-                oldPasswordInput.disabled = true,
-                oldPasswordInput.className = 'bg-gray-200 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5';
-
-                const verifyBtn2 = document.getElementById('verify-btn');
-                verifyBtn2.className = 'hidden';
-            } else {
-                // * PASSWORD VERIFICATION FAILED, HIDE THE CHANGE PASSWORD SECTION * //
-                hideChangePasswordSection();
-
-                // * SHOW A SWEETALERT FOR THE MISTAKE * //
+            success: function(response) {
+                // * SHOW SWEETALERT NOTIFICATION ON SUCCESS * //
                 Swal.fire({
+                    title: 'Success!',
+                    text: 'Password updated successfully.',
+                    icon: 'success',
+                }).then(function() {
+                    // * REDIRECT TO THE "STUDENT-ACCOUNT-SETTINGS" ROUTE AFTER THE SWEETALERT IS CLOSED * //
+                    window.location.href = '/s/account-settings/' + studentID;
+                });
+            },
+            error: function(xhr) {
+                // * SHOW SWEETALERT ERROR NOTIFICATION * //
+                swal({
+                    title: 'Error',
+                    text: 'An error occurred while updating the password.',
                     icon: 'error',
-                    title: 'Password Verification Failed',
-                    text: 'Please make sure you entered the correct current password.',
                 });
             }
-
-            // * ACCESS THE STUDENT EMAIL FROM THE RESPONSE AND USE IT AS NEEDED * //
-            const studentEmail = data.student_email;
-            console.log(studentEmail);
-        })
-        .catch((error) => {
-            // * PASSWORD VERIFICATION FAILED, HIDE THE CHANGE PASSWORD SECTION * //
-            hideChangePasswordSection();
-            console.error(error);
         });
-    }
-
-// * EVENT LISTENER FOR THE VERIFY BUTTON * //
-document.getElementById('verify-btn').addEventListener('click', function(event) {
-    event.preventDefault();
-    verifyOldPassword();
+    });
 });
-
-// * HIDE THE CHANGE PASSWORD SECTION INITIALLY (FIRST LOAD) * //
-hideChangePasswordSection();
-
-
-

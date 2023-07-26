@@ -16,10 +16,10 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
 {
     // use SkipsErrors;
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
 
     private $studentNumberCounter;
 
@@ -41,13 +41,11 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
 
         // * INCREMENT THE COUNTER TO PREPARE FOR THE NEXT STUDENT NUMBER * //
         $this->studentNumberCounter = $lastCounter + 1;
-
     }
 
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row)
-        {
+        foreach ($rows as $row) {
             $lastname = $row['lastname'];
             $birthday = $row['birthday'];
             $age = $this->calculateAge($birthday);
@@ -57,6 +55,7 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
 
             Student::create([
                 'student_no' => $studentNumber,
+                'user_id' => session('userEmail'),
                 'firstname' => $row['firstname'],
                 'middlename' => $row['middlename'],
                 'lastname' => $row['lastname'],
@@ -82,10 +81,10 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            '*.firstname' => ['required', 'regex:/^[A-Za-z-]+$/'],
-            '*.middlename' => ['required', 'regex:/^[A-Za-z-]+$/'],
-            '*.lastname' => ['required', 'regex:/^[A-Za-z-]+$/'],
-            '*.contact_no' => ['required','regex:/^(?:\+63|09)\d{9,11}$/', 'max:13', 'min:11'],
+            '*.firstname' => ['required', 'regex:/^[A-Za-z\'-]+$/'],
+            '*.middlename' => ['required', 'regex:/^[A-Za-z\'-]+$/'],
+            '*.lastname' => ['required', 'regex:/^[A-Za-z\'-]+$/'],
+            '*.contact_no' => ['required', 'regex:/^(?:\+63|09)\d{9,11}$/', 'max:13', 'min:11'],
             '*.gender' => ['required', 'regex:/^[A-Za-z]+$/'],
             '*.birthday' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
             '*.email_address' => ['required', 'email:filter', 'unique:students,email_address', 'ends_with:@gmail.com'],

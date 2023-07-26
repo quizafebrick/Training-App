@@ -13,11 +13,14 @@ class StudentsExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        return Student::orderBy('id', 'ASC')
+        $students = Student::orderBy('id', 'ASC')
+            ->where('user_id', session('userEmail'))
             ->get()
-            ->map(function ($students) {
-                return $students->makeHidden(['id', 'password', 'image', 'created_at', 'updated_at']);
+            ->map(function ($studentsHidden) {
+                return $studentsHidden->makeHidden(['id', 'user_id', 'password', 'image', 'created_at', 'updated_at']);
             });
+
+        return $students;
     }
 
     public function headings(): array

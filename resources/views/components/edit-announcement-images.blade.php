@@ -11,14 +11,13 @@
                                 <div class="w-full carousel-slide {{ $index === 0 ? 'visible' : 'hidden' }}">
                                     <div class="aspect-w-16 aspect-h-9">
                                         <img src="{{ asset('images/' . $image->image) }}" alt="{{ $image->alt_text }}"
-                                            class="object-contain w-full h-full">
+                                            class="object-contain w-full h-full" loading="lazy">
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
-
 
                 {{-- * SLIDER INDICATOR * --}}
                 <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">

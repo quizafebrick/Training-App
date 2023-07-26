@@ -22,6 +22,7 @@ class StudentInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => 'required',
             'firstname' => 'required|regex:/^[A-Za-z-]+$/',
             'middlename' => 'required|regex:/^[A-Za-z-]+$/',
             'lastname' => 'required|regex:/^[A-Za-z-]+$/',

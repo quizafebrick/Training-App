@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentChangePasswordRequests;
-use App\Http\Requests\StudentLoginRequest;
+use App\Http\Requests\StudentVerifyPasswordRequests;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class StudentAccountSettingController extends Controller
 {
@@ -29,24 +28,21 @@ class StudentAccountSettingController extends Controller
         return view('student.account-settings', $studentEmail, compact('studentDetails'));
     }
 
-    public function check(Request $request)
+    public function check(StudentVerifyPasswordRequests $request)
     {
-        $validatedData = $request->validate([
-            'old_password' => 'required|string',
-            'email_address' => 'required|email',
-        ]);
+        $requests = $request->validated();
 
         // * CALL THE CHECKSTUDENT METHOD OF THE STUDENTACCOUNTMANAGERCONTROLLER INSTANCE * //
-        // * AND PASS THE VALIDATED EMAIL AND OLD PASSWORD AS ARGUMENTS * //
-        return $this->studentManager->checkStudent($validatedData['email_address'], $validatedData['old_password']);
-
+        // * AND PASS THE REQUESTS ARRAY * //
+        return $this->studentManager->checkStudent($requests);
     }
 
     public function changePassword(StudentChangePasswordRequests $request, $id)
     {
-        // Validate that the "password" field is confirmed (matches "password_confirmation")
         $requests = $request->validated();
 
-        return $this->studentManager->changePasswordStudent($requests['password'], $id);
+        // * CALL THE CHANGEPASSWORDSTUDENT METHOD OF THE STUDENTACCOUNTMANAGERCONTROLLER INSTANCE * //
+        // * AND PASS THE REQUESTS ARRAY AND ID AS ARGUMENTS * //
+        return $this->studentManager->changePasswordStudent($requests, $id);
     }
 }

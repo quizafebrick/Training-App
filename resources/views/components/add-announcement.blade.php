@@ -96,6 +96,8 @@
                                 </div>
                             </div>
 
+                            <input type="hidden" name="user_id" value="{{ $userEmail['id'] }}">
+
                             <div class="flex items-center justify-center py-3 text-right bg-gray-200 rounded-b-lg">
                                 <button type="submit"
                                     class="w-full py-2 text-white bg-blue-600 rounded hover:bg-blue-700 hover:duration-300">

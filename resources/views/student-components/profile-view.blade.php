@@ -66,7 +66,8 @@
                                     {{-- * IMAGE IS SELECTED WHEN IT HAS EXISISTING BUT IT GOES BACK TO DEFAULT IMAGE WHEN NO IMAGE IS EXISISTING * --}}
                                     <img class="object-cover border-2 border-black w-52 h-52" id="image_output"
                                         src="{{ $studentDetails->image ? asset('images/' . $studentDetails->image) : asset('random_images/default-image.jpg') }}"
-                                        data-default-image="{{ asset('random_images/default-image.jpg') }}">
+                                        data-default-image="{{ asset('random_images/default-image.jpg') }}"
+                                        loading="lazy">
                                 </div>
                             </div>
 

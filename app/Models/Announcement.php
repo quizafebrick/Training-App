@@ -15,4 +15,9 @@ class Announcement extends Model
     {
         return $this->hasMany(Image::class, 'announcement_id');;
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

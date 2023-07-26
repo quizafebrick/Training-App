@@ -71,6 +71,4 @@ Route::group(['middleware' => ['studentLoggedIn']], function () {
     Route::get('/s/account-settings/{id}', [StudentAccountSettingController::class, 'edit'])->name('student-account-settings');
     Route::post('/verify-old-password/', [StudentAccountSettingController::class, 'check'])->name('student-verify-password');
     Route::post('/update-student-account/{id}', [StudentAccountSettingController::class, 'changePassword'])->name('student-change-password');
-
 });
-

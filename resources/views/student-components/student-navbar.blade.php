@@ -13,7 +13,7 @@
                         </path>
                     </svg>
                 </button>
-                <a href="" class="flex ml-2 md:mr-24">
+                <a href="{{ route('student-index') }}" class="flex ml-2 md:mr-24">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                         class="w-6 h-6 mt-1 text-white">
                         <path fill-rule="evenodd"
@@ -90,6 +90,7 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Announcements</span>
                 </a>
             </li>
+
             <li>
                 <a href="{{ route('student-profile-index', $studentEmail['id']) }}"
                     class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 hover:duration-300 hover:text-white group">

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignIdFor(User::class)->nullable();
             $table->string('student_no')->unique();
             $table->string('firstname');
             $table->string('middlename');

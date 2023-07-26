@@ -68,8 +68,12 @@ class StudentController extends Controller
     // * FUNCTIONS FOR ADMIN SIDE * //
     public function students(User $user, Student $student)
     {
-        $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];
-        $students = $student->orderBy('id', 'ASC')->get();
+        $userId = session('userEmail');
+
+        $userEmail = ['userEmail' => $user->where('id', $userId)->first()];
+
+        // * ASSUMING 'USER_ID' IS THE COLUMN NAME THAT RELATES TO THE USER IN THE STUDENT MODEL * //
+        $students = $student->where('user_id', $userId)->with('users')->orderBy('id', 'ASC')->get();
 
         return view('user.students', $userEmail, compact('students'));
     }

@@ -29,6 +29,7 @@ class StudentFactory extends Factory
 
         return [
             'student_no' => $studentNumber,
+            'user_id' => 1,
             'firstname' => Str::upper($this->faker->firstName()),
             'middlename' => Str::upper($this->faker->lastName()),
             'lastname' => $lastName,

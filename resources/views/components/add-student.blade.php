@@ -121,6 +121,9 @@
                                         placeholder="Write your Address here..." onkeyup="this.value = this.value.toUpperCase()">{{ old('address') }}</textarea>
                                 </div>
                             </div>
+
+                            <input type="hidden" name="user_id" value="{{ $userEmail['id'] }}">
+
                             <div class="flex items-center justify-center px-4 py-3 text-right bg-gray-200 rounded-b-lg">
                                 <button type="submit"
                                     class="w-full px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:bg-blue-700 hover:duration-300">

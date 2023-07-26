@@ -26,7 +26,8 @@
                                         <div
                                             class="absolute w-full h-full transition-transform duration-300 carousel-slide {{ $index !== 0 ? 'opacity-0' : 'opacity-100' }}">
                                             <img src="{{ asset('images/' . $image->image) }}"
-                                                alt="{{ $image->alt_text }}" class="object-contain w-full h-full">
+                                                alt="{{ $image->alt_text }}" class="object-contain w-full h-full"
+                                                loading="lazy">
                                         </div>
                                     @empty
                                         <div
@@ -74,17 +75,34 @@
 
                         {{-- * ANNOUNCEMENT TITLE, CONTENT & TIME(READABLE FOR HUMAN) * --}}
                         <div class="text-black">
-                            <div class="mt-5 text-xs text-gray-500 text-end">
-                                <div class="flex items-center justify-end">
-                                    {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-4 h-4 ml-1">
-                                        <path
-                                            d="M15.75 8.25a.75.75 0 01.75.75c0 1.12-.492 2.126-1.27 2.812a.75.75 0 11-.992-1.124A2.243 2.243 0 0015 9a.75.75 0 01.75-.75z" />
-                                        <path fill-rule="evenodd"
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM4.575 15.6a8.25 8.25 0 009.348 4.425 1.966 1.966 0 00-1.84-1.275.983.983 0 01-.97-.822l-.073-.437c-.094-.565.25-1.11.8-1.267l.99-.282c.427-.123.783-.418.982-.816l.036-.073a1.453 1.453 0 012.328-.377L16.5 15h.628a2.25 2.25 0 011.983 1.186 8.25 8.25 0 00-6.345-12.4c.044.262.18.503.389.676l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.575 15.6z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                            <div class="mt-5 mb-3 text-xs text-gray-500 text-end">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="flex items-center justify-center">
+                                            Author: {{ $announcement->users->email_address }}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-4 h-4 ml-1">
+                                                <path
+                                                    d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                                                <path
+                                                    d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex items-end justify-center">
+                                            {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-4 h-4 ml-1">
+                                                <path
+                                                    d="M15.75 8.25a.75.75 0 01.75.75c0 1.12-.492 2.126-1.27 2.812a.75.75 0 11-.992-1.124A2.243 2.243 0 0015 9a.75.75 0 01.75-.75z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM4.575 15.6a8.25 8.25 0 009.348 4.425 1.966 1.966 0 00-1.84-1.275.983.983 0 01-.97-.822l-.073-.437c-.094-.565.25-1.11.8-1.267l.99-.282c.427-.123.783-.418.982-.816l.036-.073a1.453 1.453 0 012.328-.377L16.5 15h.628a2.25 2.25 0 011.983 1.186 8.25 8.25 0 00-6.345-12.4c.044.262.18.503.389.676l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.575 15.6z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <h3 class="mt-1">{{ $announcement->title }}</h3>
