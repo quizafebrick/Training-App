@@ -32,11 +32,13 @@
 
     {{-- * PUBLIC VIEWING * --}}
     @yield('student-login')
+    @yield('student-verification-code')
 
     {{-- * STUDENT INDEX * --}}
     @yield('student-index')
     @yield('student-profile')
     @yield('student-account-settings')
+    @yield('student-email-message')
 
     {{-- * SCRIPTS * --}}
     @include('student-components.student-scripts')

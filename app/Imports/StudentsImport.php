@@ -5,6 +5,7 @@ namespace App\Imports;
 // use DateTime;
 use Carbon\Carbon;
 use App\Models\Student;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -65,6 +66,7 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
                 'age' => $age,
                 'email_address' => $row['email_address'],
                 'password' => $password,
+                'verification_token' => Str::random(12),
                 'address' => $row['address']
             ]);
         }

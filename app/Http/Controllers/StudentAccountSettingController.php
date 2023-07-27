@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentChangePasswordRequests;
-use App\Http\Requests\StudentVerifyPasswordRequests;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StudentChangePasswordRequests;
+use App\Http\Requests\StudentVerifyPasswordRequests;
 
 class StudentAccountSettingController extends Controller
 {
@@ -43,6 +44,14 @@ class StudentAccountSettingController extends Controller
 
         // * CALL THE CHANGEPASSWORDSTUDENT METHOD OF THE STUDENTACCOUNTMANAGERCONTROLLER INSTANCE * //
         // * AND PASS THE REQUESTS ARRAY AND ID AS ARGUMENTS * //
-        return $this->studentManager->changePasswordStudent($requests, $id);
+        $response = $this->studentManager->changePasswordStudent($requests, $id);
+
+        // * IF THERE ARE VALIDATION ERRORS, RETURN THEM AS A JSON RESPONSE * //
+        if ($response instanceof \Illuminate\Validation\Validator) {
+            return new JsonResponse(['errors' => $response->errors()], 422);
+        }
+
+        // * IF EVERYTHING IS SUCCESSFUL, RETURN A SUCCESS RESPONSE * //
+        return new JsonResponse(['message' => 'Password changed successfully']);
     }
 }

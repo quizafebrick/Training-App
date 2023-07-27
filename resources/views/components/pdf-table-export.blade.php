@@ -42,8 +42,8 @@
             <th>No.</th>
             <th>Student No.</th>
             <th>Firstname</th>
-            <th>Lastname</th>
             <th>Middlename</th>
+            <th>Lastname</th>
             <th>Contact No.</th>
             <th>Gender</th>
             <th>Email Address</th>

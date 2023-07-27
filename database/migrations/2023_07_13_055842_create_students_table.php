@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('age')->nullable();
             $table->string('address');
             $table->string('image')->nullable();
+            $table->string('verification_token')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

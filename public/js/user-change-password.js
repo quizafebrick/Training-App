@@ -2,8 +2,8 @@ $(document).ready(function () {
     $("#change-password-button").on("click", function (e) {
         e.preventDefault();
 
-        // * GET THE STUDENT ID FROM THE BUTTON'S DATA-ID ATTRIBUTE * //
-        var studentID = $(this).data("id");
+        // * GET THE USER    ID FROM THE BUTTON'S DATA-ID ATTRIBUTE * //
+        var userID = $(this).data("id");
 
         // * ADD CSRF TOKEN * //
         const csrfToken = document.querySelector(
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
         // * MAKE THE AJAX REQUEST * //
         $.ajax({
-            url: "/update-student-account/" + studentID,
+            url: "/update-user-account/" + userID,
             type: "POST",
             data: {
                 _token: csrfToken,
@@ -51,7 +51,7 @@ $(document).ready(function () {
                     icon: "success",
                 }).then(function () {
                     // * REDIRECT TO THE "STUDENT-ACCOUNT-SETTINGS" ROUTE AFTER THE SWEETALERT IS CLOSED * //
-                    window.location.href = "/s/account-settings/" + studentID;
+                    window.location.href = "/a/account-settings/" + userID;
                 });
             },
             error: function (xhr, status, error) {

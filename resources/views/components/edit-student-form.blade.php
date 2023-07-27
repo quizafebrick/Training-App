@@ -1,5 +1,5 @@
 <div class="mt-10">
-    <form action="{{ route('student-update-profile', $studentDetails->id) }}" enctype="multipart/form-data" method="POST">
+    <form action="{{ route('student-update', $studentDetails->id) }}" enctype="multipart/form-data" method="POST">
         @method('PUT')
         @csrf
         <div class="p-3 bg-blue-800 rounded-lg">
@@ -71,7 +71,7 @@
                                     <div class="flex items-center justify-center">
                                         <label class="block text-sm font-bold text-green-500" for="file_input">
                                             Verified:
-                                            {{ Carbon\Carbon::parse($studentDetails->email_verified_at)->format('M. d, Y') }}
+                                            {{ Carbon\Carbon::parse($studentDetails->email_verified_at)->format('M d, Y') }}
                                         </label>
                                     </div>
                                 </div>
@@ -122,8 +122,10 @@
                                         -- {{ $studentDetails->gender }} --
                                     </option>
                                     <option disabled>-- Select New Update --</option>
-                                    <option value="Male" class="hover:bg-blue-600 hover:duration-300">Male</option>
-                                    <option value="Female" class="hover:bg-blue-600 hover:duration-300">Female</option>
+                                    <option value="Male" class="hover:bg-blue-600 hover:duration-300">
+                                        Male</option>
+                                    <option value="Female" class="hover:bg-blue-600 hover:duration-300">
+                                        Female</option>
                                 </select>
                             </div>
                             <div class="">

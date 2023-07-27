@@ -6,14 +6,14 @@
         {{-- @include('components.admin-tabs') --}}
     </div>
 
-    {{-- ! ERROR MESSAGE ! --}}
-    @include('components.error-message')
 
     <div class="p-4 sm:ml-64">
         <div class="border-2 border-gray-400 border-dashed rounded-lg mt-14">
             <div class="mt-5 text-4xl font-bold text-center text-black underline">
                 Student's Information
             </div>
+            {{-- ! ERROR MESSAGE ! --}}
+            @include('components.error-message')
             <div class="flex items-center justify-center px-1 mx-1 mt-5 md:justify-start md:mx-10">
                 {{-- * MEDIUM SIZE FLEX * --}}
                 <div class="hidden md:flex">

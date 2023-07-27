@@ -21,4 +21,9 @@ class ControllerView extends Controller
     {
         return view('student.login');
     }
+
+    public function verificationCode()
+    {
+        return view('student.verification-code');
+    }
 }

@@ -39,13 +39,6 @@ header('Content-Type: text/html');
                             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 hover:duration-300 font-bold">
                             Sign in
                         </button>
-                        {{-- <p class="text-sm font-light text-gray-500">
-                            Don’t have an account yet?
-                            <a href="{{ route('register') }}"
-                                class="font-medium text-gray-50 text-primary-600 hover:text-blue-600 hover:duration-300">
-                                Sign up
-                            </a>
-                        </p> --}}
                     </form>
                 </div>
             </div>

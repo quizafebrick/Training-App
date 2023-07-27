@@ -15,7 +15,7 @@
 
 @if (session()->has('failures'))
     <div class="mt-5 mb-5 bg-white">
-        <div class="relative mx-10 overflow-x-auto bg-red-400 rounded-lg md:mx-20">
+        <div class="relative mx-10 overflow-x-auto bg-red-400 rounded-lg">
             <div class="mx-10 mt-5 mb-5">
                 <table class="w-full text-sm text-center text-white border-b-2">
                     <thead class="font-bold border-2 border-white">

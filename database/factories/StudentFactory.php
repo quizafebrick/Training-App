@@ -39,7 +39,10 @@ class StudentFactory extends Factory
             'email_address' => preg_replace('/@(example\.org|example\.net|example\.com)/', '@gmail.com', $this->faker->unique()->safeEmail()),
             'password' => Hash::make(Str::lower($lastName)),
             'address' => Str::upper($this->faker->address()),
+            // 'linkToken' => Str::random(12),
+            'verification_token' => Str::random(12),
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
+
         ];
     }
 

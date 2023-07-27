@@ -5,6 +5,7 @@ use App\Http\Controllers\ControllerView;
 use App\Http\Controllers\StudentAccountSettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\UserAccountSettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::post('/register-save', [UserController::class, 'storePublic'])->name('sto
 
 Route::post('/login-check', [UserController::class, 'check'])->name('user-check');
 Route::post('/student-login-check', [StudentController::class, 'check'])->name('student-check');
+Route::get('/student/verify-code', [ControllerView::class, 'verificationCode'])->name('verify-code')->middleware('signed');
+Route::post('/student/verified', [StudentController::class, 'verifiedStudent'])->name('student-verified');
 
 
 Route::group(['middleware' => ['adminLoggedIn']], function () {
@@ -55,6 +58,11 @@ Route::group(['middleware' => ['adminLoggedIn']], function () {
     Route::get('/a/edit-announcement/{id}', [AnnouncementController::class, 'edit'])->name('announcement-edit');
     Route::put('/a/update-announcement/{id}', [AnnouncementController::class, 'update'])->name('announcement-update');
     Route::get('/a/delete-announcement/{id}', [AnnouncementController::class, 'destroy'])->name('announcement-destroy');
+
+    // * ROUTE FOR USER ACCOUNT SETTINGS CONTROLLER * //
+    Route::get('a/account-settings/{id}', [UserAccountSettingController::class, 'edit'])->name('user-account-settings');
+    Route::post('/user-verify-old-password', [UserAccountSettingController::class, 'check'])->name('user-verify-password');
+    Route::post('/update-user-account/{id}', [UserAccountSettingController::class, 'changePassword'])->name('user-change-password');
 });
 
 
