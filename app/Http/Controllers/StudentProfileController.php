@@ -9,41 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Student $student, $id)
     {
         $studentEmail = ['studentEmail' => $student->where('id', session('studentEmail'))->first()];
@@ -52,9 +18,6 @@ class StudentProfileController extends Controller
         return view('student.profile', $studentEmail, compact('studentDetails'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateStudentInformationRequest $request, Student $student, $id)
     {
         $requests = $request->validated();
@@ -103,13 +66,5 @@ class StudentProfileController extends Controller
         $update_student->update($requests);
 
         return to_route('student-profile-index', $id)->with("success", "Update Successful!");
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

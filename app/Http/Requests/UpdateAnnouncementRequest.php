@@ -26,7 +26,6 @@ class UpdateAnnouncementRequest extends FormRequest
             'start_date' => 'required',
             'end_date' => 'required',
             'content' => 'required',
-            // 'images' => 'nullable'
         ];
     }
 }

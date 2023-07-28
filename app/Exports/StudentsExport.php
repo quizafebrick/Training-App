@@ -17,7 +17,7 @@ class StudentsExport implements FromCollection, WithHeadings
             ->where('user_id', session('userEmail'))
             ->get()
             ->map(function ($studentsHidden) {
-                return $studentsHidden->makeHidden(['id', 'user_id', 'password', 'image', 'verification_token', 'email_verified_at', 'created_at', 'updated_at']);
+                return $studentsHidden->makeHidden(['id', 'user_id', 'password', 'image', 'link_token', 'verification_token', 'email_verified_at', 'created_at', 'updated_at']);
             });
 
         return $students;

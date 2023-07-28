@@ -1,4 +1,3 @@
-<script src="{{ asset('js/add-modal.js') }}"></script>
 <script src="{{ asset('js/delete-student-sweetalert.js') }}"></script>
 <script src="{{ asset('js/delete-announcement-sweetalert.js') }}"></script>
 <script src="{{ asset('js/student-add-datepicker.js') }}"></script>

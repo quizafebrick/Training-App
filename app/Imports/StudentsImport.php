@@ -66,7 +66,7 @@ class StudentsImport implements ToCollection, WithHeadingRow, WithValidation
                 'age' => $age,
                 'email_address' => $row['email_address'],
                 'password' => $password,
-                'verification_token' => Str::random(12),
+                'link_token' => Str::random(12),
                 'address' => $row['address']
             ]);
         }

@@ -74,10 +74,6 @@ function verifyOldPassword() {
                     text: "Please make sure you entered the correct current password.",
                 });
             }
-
-            // * ACCESS THE STUDENT EMAIL FROM THE RESPONSE AND USE IT AS NEEDED * //
-            // const studentEmail = data.student_email;
-            // console.log(studentEmail);
         })
         .catch((error) => {
             // * PASSWORD VERIFICATION FAILED, HIDE THE CHANGE PASSWORD SECTION * //

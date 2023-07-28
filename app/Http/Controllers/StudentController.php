@@ -38,10 +38,14 @@ class StudentController extends Controller
             return back()->with("error", "The password does not match");
         }
 
-        if ($students->verification_token === null) {
+        if ($students->link_token === null) {
             $request->session()->put('studentEmail', $students->id);
             return redirect()->route('student-index');
         }
+
+        // * SAVE THE NEW VERIFICATION TOKEN TO THE STUDENT RECORD IN THE DATABASE * //
+        $students->verification_token = Str::random(12);
+        $students->save();
 
         $mailData = [
             'title' => 'Verification Code',
@@ -70,7 +74,10 @@ class StudentController extends Controller
         $students->email_verified_at = Carbon::today()->format('Y-m-d');
         $students->save();
 
-        $students->update(['verification_token' => null]);
+        $students->update([
+            'verification_token' => null,
+            'link_token' => null
+        ]);
 
         $request->session()->put('studentEmail', $students->id);
 
@@ -150,7 +157,7 @@ class StudentController extends Controller
 
         $requests['password'] = Hash::make(strtolower($requests['lastname']));
 
-        $requests['verification_token'] = Str::random(12);
+        $requests['link_token'] = Str::random(12);
 
         $save = $student->create($requests);
 

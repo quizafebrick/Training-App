@@ -51,11 +51,6 @@ class AnnouncementController extends Controller
         return to_route('announcement-list')->with("success", "Announcement Created!");
     }
 
-    public function show(Announcement $announcement)
-    {
-        //
-    }
-
     public function edit(Announcement $announcement, User $user, $id)
     {
         $userEmail = ['userEmail' => $user->where('id', session('userEmail'))->first()];

@@ -3,7 +3,6 @@
 @section('user-index-students')
     <div>
         @include('components.admin-navbar')
-        {{-- @include('components.admin-tabs') --}}
     </div>
 
 
